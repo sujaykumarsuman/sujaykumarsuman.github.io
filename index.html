@@ -1,77 +1,80 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <!-- Required meta tags -->
+<html>
+<head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="theme-color" content="rgb(24, 24, 24)">
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <!-- Custom Fonts -->
-    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
-    <link href="https://fonts.googleapis.com/css?family=Major+Mono+Display|Nunito|Pacifico|Permanent+Marker|Ubuntu" rel="stylesheet">
-     <!-- Material Icons -->
-     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <title>_hellofriend.sk</title>
-    <link rel="icon" type="image/png" href="images/anonymous.png" />
-  </head>
-  <body data-spy="scroll" data-target=".navbar" data-offset="50">
-    <nav id="myNavbar"style="padding:0 16px;" class="navbar fixed-top navbar-expand-lg navbar-dark">
-    <button style="border:none; outline:none;" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="true" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <a class="navbar-brand" style="padding:0;" href="#">SK</a>
-    <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-        <ul id="nav-ul" class="navbar-nav mr-auto mt-2 mt-lg-0">
-            <li class="nav-item">
-                <a class="nav-link" href="#home"><i class="material-icons">home</i>Home</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#about"><i class="material-icons">perm_identity</i>About</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#pf"><i class="material-icons">dashboard</i>Portfolio</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#c"><i class="material-icons">forum</i>Contact</a>
-            </li>
-        </ul>
-        <img src="images/search.png" id="srch-btn" class="form-inline my-2 my-lg-0">
+    <meta name="theme-color" content="#2196f3">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Major+Mono+Display|Nunito|Pacifico|Permanent+Marker|Ubuntu" rel="stylesheet">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="icon" type="image/png" href="images/avataar.jpg" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+</head>
+<body>
+    <!-- Navbar -->
+    <div class="navbar-fixed" style="height:0px;">
+        <nav style="height:45px; line-height:42px;">
+            <div class="nav-wrapper blue">
+                <a href="index.html" class="brand-logo"><span class="major-mono" id="mg-0-10">SK</span></a>
+                <a href="#" data-target="mobileNav" class="sidenav-trigger"><i style="line-height:45px;" class="material-icons">menu</i></a>
+
+                <ul class="right hide-on-med-and-down ubuntu">
+                    <li><a href="#blog"><i style="line-height:42px;" class="material-icons left">subject</i>Blog</a></li>
+                    <li><a href="#about"><i style="line-height:42px;" class="material-icons left">perm_identity</i>About</a></li>
+                    <li><a href="#projects"><i style="line-height:42px;" class="material-icons left">view_compact</i>Recent Works</a></li>
+                    <li><a href="#contact"><i style="line-height:42px;" class="material-icons left">chat</i>Contact</a></li>
+                </ul>
+            </div>
+        </nav>
     </div>
-    </nav>
-    <div class="bg-img1" id="home">
-        <div class="caption">
-            <span class="border">HI, I AM SK.</span>
-        </div>
-    </div>
+    <ul class="sidenav ubuntu" id="mobileNav">
+        <li>
+            <div class="red row valign-wrapper" id="info-block">
+                <img src="images/avataar.jpg" class="circle responsive-img z-depth-2" width="70px" id="mg-0-10" alt="Profile Picture">
+            </div>
+        </li>
+        
+        <li class="sidenav-close"><a href="#blog"><i class="material-icons left">subject</i>Blog</a></li>
+        <li class="sidenav-close"><a href="#about"><i class="material-icons left">perm_identity</i>About</a></li>
+        <li><a class="dropdown-trigger" href="#!" data-target="recent"><i class="material-icons left">view_compact</i>Recent Works<i class="material-icons right">arrow_drop_down</i></a></li>
+        <li class="sidenav-close"><a href="#contact"><i class="material-icons left">chat</i>Contact</a></li>
+    </ul>
+    <ul class="dropdown-content" id="recent">
+        <li class="sidenav-close"><a href="#prj">Projects</a></li>
+        <li class="sidenav-close"><a href="#achv">Achievements</a></li>
+        <li class="sidenav-close"><a href="#arts">Recent Articles</a></li>
+    </ul>
+    <!-- Page Content -->
+    <div class="top-spacing" id="about"></div>
     <!-- Container (About Section) -->
-    <div id="about" class="container">
-        <h2 class="text-center" style="padding-top:40px;">ABOUT ME</h2>
-        <h4 id="div-quote" class="text-center">I Love Computers</h4>
-        <p style="padding-top:45px; font-family:'Conso', 'Ubuntu', 'Sans Serif';">
-            Hello friend, I am <span style="color:yellow;">Sujay Kumar Suman</span>. A <span style="color:orange;">BE CSE</span> student of <span style="color:magenta;">2021</span>
-             batch <span style="color:yellow">@Chandigarh University</span>. I was <span style="color:greenyellow">introduced to programming</span>
-            when I was in <span style="color:yellow">high school</span>. That was the first time I saw the vast possibilities of computers. Since then I have been
-            exploring and learning about computers and will continue as long as there is something fascinating to learn. I code in
-            <span style="color:greenyellow">C/C++</span> as my <span style="color:red">primary language</span>. My main field of interest is to <span  style="color:orange;">learn</span> about the <span style="color:blueviolet;">architecture of computers</span>,
-            <span style="color:chartreuse">networking</span>, working of <span style="color:darkturquoise">algorithms</span> to the
-            <span style="color:red">machine level</span>, and most of all, to solve problems and <span style="color:darkturquoise">develop algorithms</span> as best as I can.
-            Aside from computers, I love to <span style="color:burlywood">sketch</span>, listen <span style="color:darkmagenta;"></span>music (Maroon 5, Alan Walker, Hans Zimmer, Coldplay etc.) and to <span style="color:green">travel</span>.
-            I am a <span style="color:maroon">Marvel Universe</span> & <span style="color:orange">Dragon Ball</span> fan and belongs to <span style="color:green">Hufflepuff</span>.
-        </p>
-        <div class="container" style="font-family:'Conso', 'Ubuntu', 'Sans Serif'; padding-bottom: 20px; margin-top:20px;">
-            <div class="row">
-                <div class="col-sm">
-                    <div class="d-flex justify-content-center">
-                        <i class="material-icons" style="padding:0px 15px;">perm_identity</i>
-                        <p><strong>Sujay Kumar</strong></p>
-                    </div>
-                    <img src="images/avataar.jpg" class="mx-auto d-block img-fluid" id="my-photo">
+    <div id="about-div">
+        <h4 class="center-align pacifico">Hi, I am <span class="purple-text">Sujay</span></h4>
+        <h5 id="div-quote" class="center-align">I <span class="pink-text">love</span> <i class="fas fa-coffee brown-text darken-4"></i> and <i class="fas fa-code blue-text darken-4"></i></h5>
+        <div class="container">
+            <p style="padding-top:45px; font-family:'Conso', 'Ubuntu', 'Sans Serif';">
+                Hello friend, I am Sujay Kumar Suman. A BE CSE student of 2021 batch @Chandigarh University. I was introduced
+                 to programming when I was in high school. That was the first time I saw the vast possibilities of computers. Since then I have been
+                exploring and learning about computers and will continue as long as there is something fascinating to learn. I code in
+                C/C++ as my primary language. My main field of interest is to learn about the architecture of computers, networking, working of algorithms to the
+                machine level, and most of all, to solve problems and develop algorithms as best as I can. Aside from computers, I love to sketch, listen music (Maroon 5, Alan Walker, Hans Zimmer, Coldplay etc.) and to travel.
+                I am a Marvel Universe  & Dragon Ball fan and belongs to Hufflepuff.
+            </p>
+        </div>
+        <div class="row font-conso">
+            <div class="col s12 m6 l6">
+                <div class="mx-auto d-flex valign-wrapper" style="width:150px;">
+                    <i class="material-icons center-align" style="padding:0px 15px;">perm_identity</i>
+                    <p><strong>Sujay Kumar</strong></p>
                 </div>
-                <div class="col-sm" style="padding-top:40px;">
+                <img src="images/ProfileSketch.jpg" class="mx-auto d-block z-depth-3 resoponsive-img" id="my-photo">
+            </div>
+            <div class="col s12 m6 l6" style="padding-top:40px;">
+                <div class="info-list">
                     <ul style="list-style:none;">
                         <li>
                             <div class="d-inline-flex" style="padding-top:15px;">
@@ -107,94 +110,168 @@
                     </ul>
                 </div>
             </div>
-            <div class="container" style="padding:30px 0px;">
-                <h4 class="text-center">My Skills</h4>
-                <!--TODO: Add Icons of skills -->
-                
+            <div class="col s12 m12 l12">
+                <div class="top-spacing"></div>
+                <h4 class="center-align">Skills</h4>
+                <div class="container center-align">
+                    <img id="mg-10-30" class="responsive-img " src="images/html5.png" width="90px" alt="HTML 5">
+                    <img id="mg-10-30" class="responsive-img" src="images/css3.png" width="90px" alt="HTML 5">
+                    <img id="mg-10-30" class="responsive-img" src="images/js.png" width="90px" alt="HTML 5">
+                    <img id="mg-10-30" class="responsive-img" src="images/jquery.png" width="90px" alt="HTML 5">
+                    <img id="mg-10-30" class="responsive-img" src="images/bs.png" width="90px" alt="HTML 5">
+                    <img id="mg-10-30" class="responsive-img" src="images/cpp.png" width="90px" alt="HTML 5">
+                    <img id="mg-10-30" class="responsive-img" src="images/google.png" width="90px" alt="HTML 5">
+                    <img id="mg-10-30" class="responsive-img" src="images/git.png" width="90px" alt="HTML 5"> 
+                    <img id="mg-10-30" class="responsive-img" src="images/python.png" width="90px" alt="HTML 5">
+                    <img id="mg-10-30" class="responsive-img" src="images/material.png" width="90px" alt="HTML 5">
+                </div>
             </div>
         </div>
     </div>
-    <!-- Container (Portfolio Section) -->
-    <div class="bg-img2" id="pf">
-        <p id="pf-head">PORTFOLIO</p>
+    <div class="section" id="projects">
+        <div class="divider"></div>
     </div>
-    <div id="portfolio" class="container">
-        <h2 class="text-center" style="padding-top:40px;">MY WORK</h2>
-        <h5 id="div-quote" class="text-center">Here are somethings I have worked on.</h5>
+    <!-- Projects -->
+    <div id="projects-div">
+        <h3 class="center-align ubuntu orange-text">Recents Work</h3>
+        <div class="top-spacing"></div>
+        <div class="row ubuntu">
+            <!-- One -->
+            <div class="col s12 m12 l4" id="prj">
+                <h4 class="red-text">Projects</h4>
+                <blockquote>
+                    <h5>Portfolio</h5>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos, sed provident! Nulla a quos culpa nesciunt inventore eligendi ut aliquid libero dignissimos maiores rem, quia repellendus error quas quo explicabo.</p>
+                    <a target="_blank" href="https://sujaykumarsuman.github.io/">Visit</a>
+                </blockquote>
+                <blockquote>
+                    <h5>MultipleX</h5>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos, sed provident! Nulla a quos culpa nesciunt inventore eligendi ut aliquid libero dignissimos maiores rem, quia repellendus error quas quo explicabo.</p>
+                    <a target="_blank" href="https://sujaykumarsuman.github.io/multiplex/">Play</a>
+                </blockquote>
+                <blockquote>
+                    <h5>Sketched</h5>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos, sed provident! Nulla a quos culpa nesciunt inventore eligendi ut aliquid libero dignissimos maiores rem, quia repellendus error quas quo explicabo.</p>
+                    <a target="_blank" href="https://sujaykumarsuman.github.io/sketched/">Draw</a>
+                </blockquote>
+            </div>
+            <!-- Two -->
+            <div class="col s12 m12 l4" id="achv">
+                <h4 class="green-text">Achievements</h4>
+                <blockquote>
+                    <h5>Published Research Paper</h5>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos, sed provident! Nulla a quos culpa nesciunt inventore eligendi ut aliquid libero dignissimos maiores rem, quia repellendus error quas quo explicabo.</p>
+                    <a target="_blank" href="https://sujaykumarsuman.github.io/multiplex/">Read Paper</a>
+                </blockquote>
+                <blockquote>
+                    <h5>Participated in GDG Jalandhar '18</h5>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos, sed provident! Nulla a quos culpa nesciunt inventore eligendi ut aliquid libero dignissimos maiores rem, quia repellendus error quas quo explicabo.</p>
+                    <a target="_blank" href="https://sujaykumarsuman.github.io/multiplex/">Certificate</a>
+                </blockquote>
+            </div>
+            <!-- Three -->
+            <div class="col s12 m12 l4" id="art">
+                <h4 class="blue-text">Recent Articles</h4>
+                <blockquote>
+                    <h5>MultipleX</h5>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos, sed provident! Nulla a quos culpa nesciunt inventore eligendi ut aliquid libero dignissimos maiores rem, quia repellendus error quas quo explicabo.</p>
+                    <a target="_blank" href="https://sujaykumarsuman.github.io/multiplex/">Visit</a>
+                </blockquote>
+                <blockquote>
+                    <h5>MultipleX</h5>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos, sed provident! Nulla a quos culpa nesciunt inventore eligendi ut aliquid libero dignissimos maiores rem, quia repellendus error quas quo explicabo.</p>
+                    <a target="_blank" href="https://sujaykumarsuman.github.io/multiplex/">Visit</a>
+                </blockquote>
+                <blockquote>
+                    <h5>MultipleX</h5>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos, sed provident! Nulla a quos culpa nesciunt inventore eligendi ut aliquid libero dignissimos maiores rem, quia repellendus error quas quo explicabo.</p>
+                    <a target="_blank" href="https://sujaykumarsuman.github.io/multiplex/">Visit</a>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+    <div class="section" id="contact">
+        <div class="divider"></div>
+    </div>
+    <div id="contact-div">
+        <h3 class="center-align ubuntu blue-text">Contact</h3>
+        <h5 id="div-quote" class="center-align pink-text darken-2">I would <i class="fas fa-heart"></i> hear from you.</h5>
+        <div class="section"></div>
+        <div class="container row">
+            <div class="col s12 m12 l4 center-align contact-info contact-info-border">
+                <div class="d-inline-flex" style="padding-top:15px;">
+                    <i class="material-icons" style="padding-right:10px;">location_on</i><p>Mohali, Punjab, India</p>
+                </div>
+                <br>
+                <div class="d-inline-flex" style="padding-top:15px;">
+                    <i class="material-icons" style="padding-right:10px;">local_phone</i><p>+91 8146-594-223</p>
+                </div>
+                <br>
+                <div class="d-inline-flex" style="padding-top:15px;">
+                    <i class="material-icons" style="padding-right:10px;">mail</i><p>official.sujaykumar@gmail.com</p>
+                </div>
+                <p style="padding-top:15px;">Swing by for a <i class="fa fa-coffee"></i>, or leave me a message.</p>
+                <div class="section"></div>
+            </div>
+            <div class="col s12 m12 l8 left-align">
+                <form action="#" class="col s12">
+                    <div class="row">
+                        <div class="input-field col s12 m6 l6">
+                            <i class="material-icons prefix">account_circle</i>
+                            <input id="name" type="text" class="validate">
+                            <label for="name">Name</label>
+                        </div>
+                        <div class="input-field col s12 m6 l6">
+                            <i class="material-icons prefix">email</i>
+                            <input id="email" type="email" class="validate">
+                            <label for="email">Email</label>
+                        </div>
+                    </div>
+                    <div class="input-field">
+                        <i class="material-icons prefix">message</i>
+                        <input id="msg" type="text" class="validate">
+                        <label for="msg">Message</label>
+                    </div>
+                    <div class="center-align">
+                        <button class="btn waves-effect pink darken-2 waves-light" type="submit" name="action">Submit
+                            <i class="material-icons right">send</i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="section"></div>
+    </div>
 
+    
+
+    <!-- Glitch Text -->
+    <div class="section grey lighten-3">
+            <p class="center-align" style="font-family:'Conso', 'Ubuntu', 'Sans Serif'; margin: 0; color: rgb(54, 54, 54);">Designed & Developed with <i class="fas fa-heart"></i> by</p>
+            <p class="center-align" style="font-family:'Conso', 'Ubuntu', 'Sans Serif'; margin: 0; font-size: 15.5px;">
+                    <span class="green-text accent-3">0111 0011 0111 0101 0110 1010 0110 0001 0111 1001 </span>
+                    <span class="orange-text darken-4">0110 1011 0111 0101 0110 1101 0110 0001 0111 0010 </span> 
+                    <span class="deep-purple-text accent-3">0111 0011 0111 0101 0110 1101 0110 0001 0110 1110</span>
+            </p>
+            <p class="center-align red-text darken-1" style="font-family:'Conso', 'Ubuntu', 'Sans Serif'; margin: 0;">Happy <span class="blue-text accent-4" id="ing"></span></p>
     </div>
-    <!-- Container (Contact Section) -->
-    <div class="bg-img3" id="c">
-        <p id="c-head">CONTACT</p>
+    
+    <!-- Social Button -->
+    <div class="fixed-action-btn">
+        <a class="btn-floating btn-large indigo darken-2">
+            <i class="large material-icons">share</i>
+        </a>
+        <ul>
+            <li><a href="https://instagram.com/sujaykumarsuman" class="btn-floating purple accent-3"><i class="fab fa-instagram"></i></a></li>
+            <li><a href="https://github.com/sujaykumarsuman" class="btn-floating black"><i class="fab fa-github"></i></a></li>
+            <li><a href="https://hackerrank.com/skript" class="btn-floating green"><i class="fab fa-hackerrank"></i></a></li>
+            <li><a href="https://twitter.com/sujaykumarsuman" class="btn-floating blue"><i class="fab fa-twitter"></i></a></li>
+        </ul>
     </div>
-    <div id="contact">
-        <h2 class="text-center" style="padding-top:40px;">MESSAGE ME</h2>
-        <h5 id="div-quote" class="text-center">I would <i class="fa fa-heart"></i> to here from you...</h5>
-        <div class="container" style="font-family:'Conso', 'Ubuntu', 'Sans Serif'; padding-bottom: 20px; margin-top:20px;">
-            <div class="row">
-                <div class="col-sm">
-                    <div class="container">
-                        <img id="map-img" class="mx-auto d-block img-fluid" src="images/roads.jpg">
-                    </div>
-                </div>
-                <div class="col-sm align-self-center">
-                    <div class="container align-self-center">
-                        <div class="d-inline-flex" style="padding-top:15px;">
-                            <i class="material-icons" style="padding-right:10px;">location_on</i><p>Mohali, Punjab, India</p>
-                        </div>
-                        <br>
-                        <div class="d-inline-flex" style="padding-top:15px;">
-                            <i class="material-icons" style="padding-right:10px;">local_phone</i><p>+91 8146-594-223</p>
-                        </div>
-                        <br>
-                        <div class="d-inline-flex" style="padding-top:15px;">
-                            <i class="material-icons" style="padding-right:10px;">mail</i><p>official.sujaykumar@gmail.com</p>
-                        </div>
-                        <p style="padding-top:15px;">Swing by for a <i class="fa fa-coffee"></i>, or leave me a message.</p>
-                    </div>
-                </div>
-            </div>
-            <form class="justify-content-center" action="/action_page.php" target="_blank" id="contact-form">
-            <div class="row" style="margin-top: 30px;">
-                <div class="col-sm">
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="inputGroup-sizing-default">Name</span>
-                        </div>
-                        <input type="text" class="form-control" aria-label="Name" aria-describedby="inputGroup-sizing-default" id="name">
-                    </div>
-                </div>
-                <div class="col-sm">
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="inputGroup-sizing-default">E-Mail</span>
-                        </div>
-                        <input type="email" class="form-control" aria-label="email" aria-describedby="inputGroup-sizing-default" id="email">
-                    </div>
-                </div>
-            </div>
-            <div style="padding:0;" class="col-sm">
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="inputGroup-sizing-default">Message</span>
-                    </div>
-                    <input type="text" class="form-control" aria-label="message" aria-describedby="inputGroup-sizing-default" id="msg">
-                </div>
-            </div>
-            <button type="submit" class="btn btn-primary"><i class="fa fa-paper-plane" id="submit"></i> SEND MESSAGE</button>
-            </form>
-        </div>
-        <br>
-        <p class="text-center" style="font-family:'Conso', 'Ubuntu', 'Sans Serif';">Happy <span id="ing"></span></p>
-        <p class="text-center" style="font-family:'Conso', 'Ubuntu', 'Sans Serif';"><span style="color:chartreuse;">0111 0011 0111 0101 0110 1010 0110 0001 0111 1001</span> <span style="color:coral;">0110 1011 0111 0101 0110 1101 0110 0001 0111 0010</span> <span style="color:darkviolet;">0111 0011 0111 0101 0110 1101 0110 0001 0110 1110</span></p>
-    </div>
-    <!-- Optional JavaScript -->
+
+    <!-- JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="main.js"></script>
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-    <!-- Firebase -->
-    <script src="https://www.gstatic.com/firebasejs/5.7.3/firebase.js"></script>
-  </body>
+</body>
 </html>

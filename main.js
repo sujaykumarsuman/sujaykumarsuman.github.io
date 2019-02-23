@@ -1,15 +1,8 @@
-//Navbars
-
-window.onscroll = function() {myFunction()};
-function myFunction() {
-    var navbar = document.getElementById("myNavbar");
-    if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
-        navbar.className = "navbar fixed-top navbar-expand-lg navbar-dark nav-card";
-
-    } else {
-        navbar.className = navbar.className.replace("navbar fixed-top navbar-expand-lg navbar-dark nav-card", "navbar fixed-top navbar-expand-lg navbar-dark");
-    }
-}
+$(document).ready(function(){
+    $('.sidenav').sidenav();
+    $('.fixed-action-btn').floatingActionButton();
+    $('.dropdown-trigger').dropdown();
+});
 
 // Random Words
 var things = ['coding','knitting','blogging','blogging','blogging','blogging','blogging','designing','planning','writing','writing','writing','writing','writing','writing','writing','programming','programming','programming','programming','programming','concluding','programming','thinking','scripting','scripting','scripting','scripting','scripting','sewing','sketching','ruminating','deliberating','pondering','contemplating','abstracting','abstracting','abstracting','abstracting','abstracting','abstracting','optimising','optimising','optimising','optimising','optimising','optimising','refactoring','refactoring','refactoring','objectifying','simplifying','decoupling','debugging','debugging','debugging','debugging','debugging','debugging','configuring','streamlining','searching','tweaking','editing'];
