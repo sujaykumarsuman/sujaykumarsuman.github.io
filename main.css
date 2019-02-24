@@ -106,6 +106,10 @@ body, html{
     border-radius: 10px;
 }
 
+.skill-icon{
+    width: 90px;
+}
+
 #project-div{
     color: rgb(24, 24, 24);
     height: auto;
@@ -134,5 +138,14 @@ body, html{
 @media only screen and (max-width: 768px){
     .contact-info-border{
         border: none;
+    }
+    .skill-icon{
+        width: 65px;
+    }
+}
+
+@media only screen and (max-width: 600px){
+    .skill-icon{
+        width: 55px;
     }
 }
