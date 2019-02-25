@@ -4,6 +4,45 @@ $(document).ready(function(){
     $('.dropdown-trigger').dropdown();
 });
 
+// Initialize Firebase
+var config = {
+    apiKey: "AIzaSyANPcKR-5hSyDN0vyM1Esu0KW4cmfBOAcM",
+    authDomain: "messages-f7267.firebaseapp.com",
+    databaseURL: "https://messages-f7267.firebaseio.com",
+    projectId: "messages-f7267",
+    storageBucket: "messages-f7267.appspot.com",
+    messagingSenderId: "1016294304098"
+};
+firebase.initializeApp(config);
+
+let msgRef = firebase.database().ref('messages');
+
+function getVal(id){
+    return document.getElementById(id).value;
+}
+
+document.getElementById("submit").addEventListener('click', function (evt) {
+    evt.preventDefault();
+
+    let name = getVal('name');
+    let email = getVal('email');
+    let msg = getVal('msg');
+    alert("Thank You for reaching out! I'll respond as soon as possible. 😊");
+    saveMsg(name, email, msg);
+});
+
+// Save Message
+function saveMsg(name, email, msg) {
+    let newMsgRef = msgRef.push();
+
+    newMsgRef.set({
+        name: name,
+        email: email,
+        message: msg
+    });
+}
+
+
 // Random Words
 var things = ['coding','knitting','blogging','blogging','blogging','blogging','blogging','designing','planning','writing','writing','writing','writing','writing','writing','writing','programming','programming','programming','programming','programming','concluding','programming','thinking','scripting','scripting','scripting','scripting','scripting','sewing','sketching','ruminating','deliberating','pondering','contemplating','abstracting','abstracting','abstracting','abstracting','abstracting','abstracting','optimising','optimising','optimising','optimising','optimising','optimising','refactoring','refactoring','refactoring','objectifying','simplifying','decoupling','debugging','debugging','debugging','debugging','debugging','debugging','configuring','streamlining','searching','tweaking','editing'];
 var junk = ['#','@','%','*','&amp;','&lt;','&gt;','_','=','+','[',']','|','-','!','?','X'];
