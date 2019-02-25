@@ -5,42 +5,42 @@ $(document).ready(function(){
 });
 
 // Initialize Firebase
-var config = {
-    apiKey: "AIzaSyANPcKR-5hSyDN0vyM1Esu0KW4cmfBOAcM",
-    authDomain: "messages-f7267.firebaseapp.com",
-    databaseURL: "https://messages-f7267.firebaseio.com",
-    projectId: "messages-f7267",
-    storageBucket: "messages-f7267.appspot.com",
-    messagingSenderId: "1016294304098"
-};
-firebase.initializeApp(config);
+// var config = {
+//     apiKey: "#api-key",
+//     authDomain: "projectId.firebaseapp.com",
+//     databaseURL: "https://projectId.firebaseio.com",
+//     projectId: "#projectId",
+//     storageBucket: "projectId.appspot.com",
+//     messagingSenderId: "senderId"
+// };
+// firebase.initializeApp(config);
 
-let msgRef = firebase.database().ref('messages');
+// let msgRef = firebase.database().ref('messages');
 
-function getVal(id){
-    return document.getElementById(id).value;
-}
+// function getVal(id){
+//     return document.getElementById(id).value;
+// }
 
-document.getElementById("submit").addEventListener('click', function (evt) {
-    evt.preventDefault();
+// document.getElementById("submit").addEventListener('click', function (evt) {
+//     evt.preventDefault();
 
-    let name = getVal('name');
-    let email = getVal('email');
-    let msg = getVal('msg');
-    alert("Thank You for reaching out! I'll respond as soon as possible. 😊");
-    saveMsg(name, email, msg);
-});
+//     let name = getVal('name');
+//     let email = getVal('email');
+//     let msg = getVal('msg');
+//     alert("Thank You for reaching out! I'll respond as soon as possible. 😊");
+//     saveMsg(name, email, msg);
+// });
 
-// Save Message
-function saveMsg(name, email, msg) {
-    let newMsgRef = msgRef.push();
+// // Save Message
+// function saveMsg(name, email, msg) {
+//     let newMsgRef = msgRef.push();
 
-    newMsgRef.set({
-        name: name,
-        email: email,
-        message: msg
-    });
-}
+//     newMsgRef.set({
+//         name: name,
+//         email: email,
+//         message: msg
+//     });
+// }
 
 
 // Random Words
