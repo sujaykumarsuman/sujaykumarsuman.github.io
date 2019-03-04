@@ -1,289 +1,602 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>_hellofriend.sk</title>
-    <meta name="theme-color" content="#2196f3">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#2196f3" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Major+Mono+Display|Nunito|Pacifico|Permanent+Marker|Ubuntu" rel="stylesheet">
-    <link rel="manifest" href="/manifest.json">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Major+Mono+Display|Nunito|Pacifico|Permanent+Marker|Ubuntu"
+      rel="stylesheet"
+    />
+    <link rel="manifest" href="/manifest.json" />
     <link rel="icon" type="image/png" href="images/avataar.jpg" />
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-</head>
-<body>
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+      integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
     <!-- Navbar -->
     <div class="navbar-fixed" style="height:0px;">
-        <nav style="height:45px; line-height:42px;">
-            <div class="nav-wrapper blue">
-                <a href="index.html" class="brand-logo"><span class="major-mono" id="mg-0-10">SK</span></a>
-                <a href="#" data-target="mobileNav" class="sidenav-trigger"><i style="line-height:45px;" class="material-icons">menu</i></a>
+      <nav style="height:45px; line-height:42px;">
+        <div class="nav-wrapper blue">
+          <a href="index.html" class="brand-logo"
+            ><span class="major-mono" id="mg-0-10">SK</span></a
+          >
+          <a href="#" data-target="mobileNav" class="sidenav-trigger"
+            ><i style="line-height:45px;" class="material-icons">menu</i></a
+          >
 
-                <ul class="right hide-on-med-and-down ubuntu">
-                    <li><a href="#blog"><i style="line-height:42px;" class="material-icons left">subject</i>Blog</a></li>
-                    <li><a href="#about"><i style="line-height:42px;" class="material-icons left">perm_identity</i>About</a></li>
-                    <li><a href="#projects"><i style="line-height:42px;" class="material-icons left">view_compact</i>Recent Works</a></li>
-                    <li><a href="#contact"><i style="line-height:42px;" class="material-icons left">chat</i>Contact</a></li>
-                </ul>
-            </div>
-        </nav>
+          <ul class="right hide-on-med-and-down ubuntu">
+            <li>
+              <a href="#blog"
+                ><i style="line-height:42px;" class="material-icons left"
+                  >subject</i
+                >Blog</a
+              >
+            </li>
+            <li>
+              <a href="#about"
+                ><i style="line-height:42px;" class="material-icons left"
+                  >perm_identity</i
+                >About</a
+              >
+            </li>
+            <li>
+              <a href="#projects"
+                ><i style="line-height:42px;" class="material-icons left"
+                  >view_compact</i
+                >Recent Works</a
+              >
+            </li>
+            <li>
+              <a href="#contact"
+                ><i style="line-height:42px;" class="material-icons left"
+                  >chat</i
+                >Contact</a
+              >
+            </li>
+          </ul>
+        </div>
+      </nav>
     </div>
     <ul class="sidenav ubuntu" id="mobileNav">
-        <li>
-            <div class="red row valign-wrapper" id="info-block">
-                <img src="images/avataar.jpg" class="circle responsive-img z-depth-2" width="70px" id="mg-0-10" alt="Profile Picture">
-            </div>
-        </li>
-        
-        <li class="sidenav-close"><a href="#blog"><i class="material-icons left">subject</i>Blog</a></li>
-        <li class="sidenav-close"><a href="#about"><i class="material-icons left">perm_identity</i>About</a></li>
-        <li><a class="dropdown-trigger" href="#!" data-target="recent"><i class="material-icons left">view_compact</i>Recent Works<i class="material-icons right">arrow_drop_down</i></a></li>
-        <li class="sidenav-close"><a href="#contact"><i class="material-icons left">chat</i>Contact</a></li>
+      <li>
+        <div class="red row valign-wrapper" id="info-block">
+          <img
+            src="images/avataar.jpg"
+            class="circle responsive-img z-depth-2"
+            width="70px"
+            id="mg-0-10"
+            alt="Profile Picture"
+          />
+        </div>
+      </li>
+
+      <li class="sidenav-close ">
+        <a href="#blog"><i class="material-icons left">subject</i>Blog</a>
+      </li>
+      <li class="sidenav-close ">
+        <a href="#about"
+          ><i class="material-icons left">perm_identity</i>About</a
+        >
+      </li>
+      <li>
+        <a class="dropdown-trigger" href="#!" data-target="recent"
+          ><i class="material-icons left">view_compact</i>Recent Works<i
+            class="material-icons right"
+            >arrow_drop_down</i
+          ></a
+        >
+      </li>
+      <li class="sidenav-close ">
+        <a href="#contact"><i class="material-icons left">chat</i>Contact</a>
+      </li>
     </ul>
     <ul class="dropdown-content" id="recent">
-        <li class="sidenav-close"><a href="#prj">Projects</a></li>
-        <li class="sidenav-close"><a href="#achv">Achievements</a></li>
-        <li class="sidenav-close"><a href="#art">Recent Articles</a></li>
+      <li class="sidenav-close "><a href="#prj">Projects</a></li>
+      <li class="sidenav-close ">
+        <a href="#achv">Achievements</a>
+      </li>
+      <li class="sidenav-close ">
+        <a href="#art">Recent Articles</a>
+      </li>
     </ul>
     <!-- Page Content -->
     <div class="top-spacing" id="about"></div>
     <!-- Container (About Section) -->
     <div id="about-div">
-        <h4 class="center-align pacifico">Hi, I am <span class="purple-text">Sujay</span></h4>
-        <h5 id="div-quote" class="center-align">I <span class="pink-text">love</span> <i class="fas fa-coffee brown-text darken-4"></i> and <i class="fas fa-code blue-text darken-4"></i></h5>
-        <div class="container">
-            <p style="padding-top:45px; font-family:'Conso', 'Ubuntu', 'Sans Serif';">
-                Hello friend, I am Sujay Kumar Suman. A BE CSE student of 2021 batch @Chandigarh University. I was introduced
-                 to programming when I was in high school. That was the first time I saw the vast possibilities of computers. Since then I have been
-                exploring and learning about computers and will continue as long as there is something fascinating to learn. I code in
-                C/C++ as my primary language. My main field of interest is to learn about the architecture of computers, networking, working of algorithms to the
-                machine level, and most of all, to solve problems and develop algorithms as best as I can. Aside from computers, I love to sketch, listen music (Maroon 5, Alan Walker, Hans Zimmer, Coldplay etc.) and to travel.
-                I am a Marvel Universe  & Dragon Ball fan.
-            </p>
+      <h4 class="center-align pacifico">
+        Hi, I am <span class="purple-text">Sujay</span>
+      </h4>
+      <h5 id="div-quote" class="center-align">
+        I <span class="pink-text">love</span>
+        <i class="fas fa-coffee brown-text darken-4"></i> and
+        <i class="fas fa-code blue-text darken-4"></i>
+      </h5>
+      <div class="container">
+        <p
+          style="padding-top:45px; font-family:'Conso', 'Ubuntu', 'Sans Serif';"
+        >
+          Hello friend, I am Sujay Kumar Suman. A BE CSE student of 2021 batch
+          @Chandigarh University. I was introduced to programming when I was in
+          high school. That was the first time I saw the vast possibilities of
+          computers. Since then I have been exploring and learning about
+          computers and will continue as long as there is something fascinating
+          to learn. I code in C/C++ as my primary language. My main field of
+          interest is to learn about the architecture of computers, networking,
+          working of algorithms to the machine level, and most of all, to solve
+          problems and develop algorithms as best as I can. Aside from
+          computers, I love to sketch, listen music (Maroon 5, Alan Walker, Hans
+          Zimmer, Coldplay etc.) and to travel. I am a Marvel Universe & Dragon
+          Ball fan.
+        </p>
+      </div>
+      <div class="row font-conso">
+        <div class="col s12 m6 l6">
+          <div class="mx-auto d-flex valign-wrapper" style="width:150px;">
+            <i class="material-icons center-align" style="padding:0px 15px;"
+              >perm_identity</i
+            >
+            <p><strong>Sujay Kumar</strong></p>
+          </div>
+          <img
+            src="images/ProfileSketch.jpg"
+            class="mx-auto d-block z-depth-3 resoponsive-img"
+            id="my-photo"
+          />
         </div>
-        <div class="row font-conso">
-            <div class="col s12 m6 l6">
-                <div class="mx-auto d-flex valign-wrapper" style="width:150px;">
-                    <i class="material-icons center-align" style="padding:0px 15px;">perm_identity</i>
-                    <p><strong>Sujay Kumar</strong></p>
+        <div class="col s12 m6 l6" style="padding-top:40px;">
+          <div class="info-list">
+            <ul style="list-style:none;">
+              <li>
+                <div class="d-inline-flex" style="padding-top:15px;">
+                  <i class="material-icons" style="padding-right:10px;">cake</i>
+                  <p>$sk ./begin.exe : 28 Dec, 1999</p>
                 </div>
-                <img src="images/ProfileSketch.jpg" class="mx-auto d-block z-depth-3 resoponsive-img" id="my-photo">
-            </div>
-            <div class="col s12 m6 l6" style="padding-top:40px;">
-                <div class="info-list">
-                    <ul style="list-style:none;">
-                        <li>
-                            <div class="d-inline-flex" style="padding-top:15px;">
-                                <i class="material-icons" style="padding-right:10px;">cake</i><p>$sk ./begin.exe : 28 Dec, 1999</p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="d-inline-flex" style="padding-top:15px;">
-                                <i class="material-icons" style="padding-right:10px;">school</i><p>$./sk.edu:</p>
-                                <ul style="list-style-type:decimal;">
-                                    <li>The Air Force School - Primary</li>
-                                    <li>Kendriya Vidyalaya AFS Tanjore - Secondary School</li>
-                                    <li>Kendriya Vidyalaya Mathura Cantt - High School & Intermediate</li>
-                                    <li>Chandigarh University - BE Computer Science Engineering</li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="d-inline-flex" style="padding-top:15px;">
-                                <i class="material-icons" style="padding-right:10px;">share</i><p style="padding-right:35px;">$connect: </p>
-                                <a target="_blank" href="https://instagram.com/sujaykumarsuman"><i class="fab fa-instagram" style="padding:0 10px; font-size:x-large"></i></a>
-                                <a target="_blank" href="https://twitter.com/SujayKumarSuman"><i class="fab fa-twitter" style="padding:0 10px; font-size:x-large"></i></a>
-                                <a target="_blank" href="https://instagram.com/sujaykumarsuman"><i class="fab fa-github" style="padding:0 10px; font-size:x-large"></i></a>
-                                <a target="_blank" href="https://www.hackerrank.com/skript"><i class="fab fa-hackerrank" style="padding:0 10px; font-size:x-large"></i></a>
-                                <a target="_blank" href="https://www.linkedin.com/in/sujaykumarsuman/"><i class="fab fa-linkedin" style="padding:0 10px; font-size:x-large"></i></a>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="d-inline-flex" style="padding-top:15px;">
-                                <i class="material-icons" style="padding-right:10px;">location_on</i><p>$pwd : Mohali, Punjab, India</p>
-                            </div>
-                        </li>
-                    </ul>
+              </li>
+              <li>
+                <div class="d-inline-flex" style="padding-top:15px;">
+                  <i class="material-icons" style="padding-right:10px;"
+                    >school</i
+                  >
+                  <p>$./sk.edu:</p>
+                  <ul style="list-style-type:decimal;">
+                    <li>The Air Force School - Primary</li>
+                    <li>Kendriya Vidyalaya AFS Tanjore - Secondary School</li>
+                    <li>
+                      Kendriya Vidyalaya Mathura Cantt - High School &
+                      Intermediate
+                    </li>
+                    <li>
+                      Chandigarh University - BE Computer Science Engineering
+                    </li>
+                  </ul>
                 </div>
-            </div>
-            <div class="col s12 m12 l12">
-                <div class="top-spacing"></div>
-                <h4 class="center-align">Skills</h4>
-                <div class="container center-align">
-                    <img id="mg-10-30" class="responsive-img skill-icon" src="images/html5.png"  alt="HTML 5">
-                    <img id="mg-10-30" class="responsive-img skill-icon" src="images/css3.png"  alt="CSS 3">
-                    <img id="mg-10-30" class="responsive-img skill-icon" src="images/js.png"  alt="JavaScript">
-                    <img id="mg-10-30" class="responsive-img skill-icon" src="images/jquery.png"  alt="jQuery">
-                    <img id="mg-10-30" class="responsive-img skill-icon" src="images/bs.png"  alt="Bootstrap">
-                    <img id="mg-10-30" class="responsive-img skill-icon" src="images/cpp.png"  alt="C Plus Plus">
-                    <img id="mg-10-30" class="responsive-img skill-icon" src="images/vs.png" alt="Visual Studio">
-                    <img id="mg-10-30" class="responsive-img skill-icon" src="images/google.png"  alt="Action on Google">
-                    <img id="mg-10-30" class="responsive-img skill-icon" src="images/git.png"  alt="GitHub"> 
-                    <img id="mg-10-30" class="responsive-img skill-icon" src="images/python.png"  alt="Python">
-                    <img id="mg-10-30" class="responsive-img skill-icon" src="images/firebase.png" alt="Firebase">
-                    <img id="mg-10-30" class="responsive-img skill-icon" src="images/material.png"  alt="Materialize">
+              </li>
+              <li>
+                <div class="d-inline-flex" style="padding-top:15px;">
+                  <i class="material-icons" style="padding-right:10px;"
+                    >share</i
+                  >
+                  <p style="padding-right:35px;">$connect:</p>
+                  <a
+                    target="_blank"
+                    href="https://instagram.com/sujaykumarsuman"
+                    ><i
+                      class="fab fa-instagram"
+                      style="padding:0 10px; font-size:x-large"
+                    ></i
+                  ></a>
+                  <a target="_blank" href="https://twitter.com/SujayKumarSuman"
+                    ><i
+                      class="fab fa-twitter"
+                      style="padding:0 10px; font-size:x-large"
+                    ></i
+                  ></a>
+                  <a
+                    target="_blank"
+                    href="https://instagram.com/sujaykumarsuman"
+                    ><i
+                      class="fab fa-github"
+                      style="padding:0 10px; font-size:x-large"
+                    ></i
+                  ></a>
+                  <a target="_blank" href="https://www.hackerrank.com/skript"
+                    ><i
+                      class="fab fa-hackerrank"
+                      style="padding:0 10px; font-size:x-large"
+                    ></i
+                  ></a>
+                  <a
+                    target="_blank"
+                    href="https://www.linkedin.com/in/sujaykumarsuman/"
+                    ><i
+                      class="fab fa-linkedin"
+                      style="padding:0 10px; font-size:x-large"
+                    ></i
+                  ></a>
                 </div>
-            </div>
+              </li>
+              <li>
+                <div class="d-inline-flex" style="padding-top:15px;">
+                  <i class="material-icons" style="padding-right:10px;"
+                    >location_on</i
+                  >
+                  <p>$pwd : Mohali, Punjab, India</p>
+                </div>
+              </li>
+            </ul>
+          </div>
         </div>
+        <div class="col s12 m12 l12">
+          <div class="top-spacing"></div>
+          <h4 class="center-align">Skills</h4>
+          <div class="container center-align">
+            <img
+              id="mg-10-30"
+              class="responsive-img skill-icon"
+              src="images/html5.png"
+              alt="HTML 5"
+            />
+            <img
+              id="mg-10-30"
+              class="responsive-img skill-icon"
+              src="images/css3.png"
+              alt="CSS 3"
+            />
+            <img
+              id="mg-10-30"
+              class="responsive-img skill-icon"
+              src="images/js.png"
+              alt="JavaScript"
+            />
+            <img
+              id="mg-10-30"
+              class="responsive-img skill-icon"
+              src="images/jquery.png"
+              alt="jQuery"
+            />
+            <img
+              id="mg-10-30"
+              class="responsive-img skill-icon"
+              src="images/bs.png"
+              alt="Bootstrap"
+            />
+            <img
+              id="mg-10-30"
+              class="responsive-img skill-icon"
+              src="images/cpp.png"
+              alt="C Plus Plus"
+            />
+            <img
+              id="mg-10-30"
+              class="responsive-img skill-icon"
+              src="images/vs.png"
+              alt="Visual Studio"
+            />
+            <img
+              id="mg-10-30"
+              class="responsive-img skill-icon"
+              src="images/google.png"
+              alt="Action on Google"
+            />
+            <img
+              id="mg-10-30"
+              class="responsive-img skill-icon"
+              src="images/git.png"
+              alt="GitHub"
+            />
+            <img
+              id="mg-10-30"
+              class="responsive-img skill-icon"
+              src="images/python.png"
+              alt="Python"
+            />
+            <img
+              id="mg-10-30"
+              class="responsive-img skill-icon"
+              src="images/firebase.png"
+              alt="Firebase"
+            />
+            <img
+              id="mg-10-30"
+              class="responsive-img skill-icon"
+              src="images/material.png"
+              alt="Materialize"
+            />
+          </div>
+        </div>
+      </div>
     </div>
     <div class="section" id="projects">
-        <div class="divider"></div>
+      <div class="divider"></div>
     </div>
     <!-- Projects -->
     <div id="projects-div">
-        <h3 class="center-align ubuntu orange-text">Recents Work</h3>
-        <div class="row ubuntu">
-            <!-- One -->
-            <div class="col s12 m12 l4">
-                <div id="prj" class="section"></div>
-                <h4 class="red-text">Projects</h4>
-                <blockquote>
-                    <h5>Portfolio</h5>
-                    <p>
-                        This is my portfolio website. This page was made with HTML5, CSS3, JS and jQuery using material design by <a target="_blank" href="https://materializecss.com">materializecss</a>. 
-                        This project is still under progress as I have to add back-end part of the site. The template is open source and free to use. You can find it on 
-                        my github profile or just click the link below.
-                    </p>
-                    <a target="_blank" href="https://github.com/sujaykumarsuman/sujaykumarsuman.github.io/">Repository</a>
-                </blockquote>
-                <blockquote>
-                    <h5>MultipleX</h5>
-                    <p>
-                        This project was the part of my JS learning course on <a target="_blank" href="https://www.udemy.com/complete-web-development-course/">Udemy</a>. This is simple game where you are given a simple multiplication question 
-                        and 4 options out of which one is correct. Your final score will be the number of questions you are able to answer. The logic of the game and various 
-                        animations are implemented using JS. The code is completely open source and free to use. You can find the repository <a target="_blank" href="https://github.com/sujaykumarsuman/multiplexgame/">here</a> or just give 
-                        this game a try.
-                    </p>
-                    <a target="_blank" href="https://sujaykumarsuman.github.io/multiplex/">Play Game</a>
-                </blockquote>
-                <blockquote>
-                    <h5>Sketched</h5>
-                    <p>
-                        This project is developed using HTML5, CSS3 and jQuery as a part of my <a href="https://www.udemy.com/complete-web-development-course/">course</a>. 
-                        The project features a drawable canvas, various color strokes and also save as JPG file. The code is completely open source and is avialable
-                        <a href="https://github.com/sujaykumarsuman/sketched/">here</a>. You can give your digital artist a try by visiting the link below.
-                    </p>
-                    <a target="_blank" href="https://sujaykumarsuman.github.io/sketched/">Draw</a>
-                </blockquote>
-            </div>
-            <!-- Two -->
-            <div class="col s12 m12 l4">
-                <div id="achv" class="section"></div>
-                <h4 class="green-text">Achievements</h4>
-                <blockquote>
-                    <h5>Published Research Paper</h5>
-                    <p>
-                        Participated in <a href="http://icetce.in">ICETCE-2019</a> to present my paper on "Predicting the Risk of Cervical Cancer: A Case Study of Machine Learning" which will be published in the following
-                        ESCI Indexed Journals of Taylor & Francis.
-                    </p>
-                    <a target="_blank" href="https://sujaykumarsuman.github.io/multiplex/">Read Paper</a>
-                </blockquote>
-                <blockquote>
-                    <h5>Participated in GDG Jalandhar '18</h5>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos, sed provident! Nulla a quos culpa nesciunt inventore eligendi ut aliquid libero dignissimos maiores rem, quia repellendus error quas quo explicabo.</p>
-                    <a target="_blank" href="https://sujaykumarsuman.github.io/multiplex/">Certificate</a>
-                </blockquote>
-            </div>
-            <!-- Three -->
-            <div class="col s12 m12 l4">
-                <div id="art" class="section"></div>
-                <h4 class="blue-text">Recent Articles</h4>
-                <blockquote>
-                    <h5>Hello World!</h5>
-                    <p>
-                        Hi folks, I am SK and there is nothing more to read other than this abstract template. The reason is that my blog page is
-                        is still a work in progress. As soon as it completes the i'll merge it to my portfolio website. However, I am not planning to keep the blogging
-                        page open source so it will not be pushed to GitHub.
-                    </p>
-                    <p>Thank You!</p>
-                </blockquote>
-            </div>
+      <h3 class="center-align ubuntu orange-text">Recents Work</h3>
+      <div class="row ubuntu">
+        <!-- One -->
+        <div class="col s12 m12 l4">
+          <div id="prj" class="section"></div>
+          <h4 class="red-text">Projects</h4>
+          <blockquote>
+            <h5>Portfolio</h5>
+            <p>
+              This is my portfolio website. This page was made with HTML5, CSS3,
+              JS and jQuery using material design by
+              <a target="_blank" href="https://materializecss.com"
+                >materializecss</a
+              >. This project is still under progress as I have to add back-end
+              part of the site. The template is open source and free to use. You
+              can find it on my github profile or just click the link below.
+            </p>
+            <a
+              target="_blank"
+              href="https://github.com/sujaykumarsuman/sujaykumarsuman.github.io/"
+              >Repository</a
+            >
+          </blockquote>
+          <blockquote>
+            <h5>MultipleX</h5>
+            <p>
+              This project was the part of my JS learning course on
+              <a
+                target="_blank"
+                href="https://www.udemy.com/complete-web-development-course/"
+                >Udemy</a
+              >. This is simple game where you are given a simple multiplication
+              question and 4 options out of which one is correct. Your final
+              score will be the number of questions you are able to answer. The
+              logic of the game and various animations are implemented using JS.
+              The code is completely open source and free to use. You can find
+              the repository
+              <a
+                target="_blank"
+                href="https://github.com/sujaykumarsuman/multiplexgame/"
+                >here</a
+              >
+              or just give this game a try.
+            </p>
+            <a
+              target="_blank"
+              href="https://sujaykumarsuman.github.io/multiplex/"
+              >Play Game</a
+            >
+          </blockquote>
+          <blockquote>
+            <h5>Sketched</h5>
+            <p>
+              This project is developed using HTML5, CSS3 and jQuery as a part
+              of my
+              <a href="https://www.udemy.com/complete-web-development-course/"
+                >course</a
+              >. The project features a drawable canvas, various color strokes
+              and also save as JPG file. The code is completely open source and
+              is avialable
+              <a href="https://github.com/sujaykumarsuman/sketched/">here</a>.
+              You can give your digital artist a try by visiting the link below.
+            </p>
+            <a
+              target="_blank"
+              href="https://sujaykumarsuman.github.io/sketched/"
+              >Draw</a
+            >
+          </blockquote>
         </div>
+        <!-- Two -->
+        <div class="col s12 m12 l4">
+          <div id="achv" class="section"></div>
+          <h4 class="green-text">Achievements</h4>
+          <blockquote>
+            <h5>Published Research Paper</h5>
+            <p>
+              Participated in <a href="http://icetce.in">ICETCE-2019</a> to
+              present my paper on "Predicting the Risk of Cervical Cancer: A
+              Case Study of Machine Learning" which will be published in the
+              following ESCI Indexed Journals of Taylor & Francis.
+            </p>
+            <a
+              target="_blank"
+              href="https://sujaykumarsuman.github.io/multiplex/"
+              >Read Paper</a
+            >
+          </blockquote>
+          <blockquote>
+            <h5>Participated in GDG Jalandhar '18</h5>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Dignissimos, sed provident! Nulla a quos culpa nesciunt inventore
+              eligendi ut aliquid libero dignissimos maiores rem, quia
+              repellendus error quas quo explicabo.
+            </p>
+            <a
+              target="_blank"
+              href="https://sujaykumarsuman.github.io/multiplex/"
+              >Certificate</a
+            >
+          </blockquote>
+        </div>
+        <!-- Three -->
+        <div class="col s12 m12 l4">
+          <div id="art" class="section"></div>
+          <h4 class="blue-text">Recent Articles</h4>
+          <blockquote>
+            <h5>Hello World!</h5>
+            <p>
+              Hi folks, I am SK and there is nothing more to read other than
+              this abstract template. The reason is that my blog page is is
+              still a work in progress. As soon as it completes the i'll merge
+              it to my portfolio website. However, I am not planning to keep the
+              blogging page open source so it will not be pushed to GitHub.
+            </p>
+            <p>Thank You!</p>
+          </blockquote>
+        </div>
+      </div>
     </div>
     <div class="section" id="contact">
-        <div class="divider"></div>
+      <div class="divider"></div>
     </div>
     <div id="contact-div">
-        <h3 class="center-align ubuntu blue-text">Contact</h3>
-        <h5 id="div-quote" class="center-align pink-text darken-2">I would <i class="fas fa-heart"></i> hear from you.</h5>
-        <div class="section"></div>
-        <div class="container row">
-            <div class="col s12 m12 l4 center-align contact-info contact-info-border">
-                <div class="d-inline-flex" style="padding-top:15px;">
-                    <i class="material-icons" style="padding-right:10px;">location_on</i><p>Mohali, Punjab, India</p>
-                </div>
-                <br>
-                <div class="d-inline-flex" style="padding-top:15px;">
-                    <i class="material-icons" style="padding-right:10px;">local_phone</i><p>+91 8146-594-223</p>
-                </div>
-                <br>
-                <div class="d-inline-flex" style="padding-top:15px;">
-                    <i class="material-icons" style="padding-right:10px;">mail</i><p>official.sujaykumar@gmail.com</p>
-                </div>
-                <p style="padding-top:15px;">Swing by for a <i class="fa fa-coffee"></i>, or leave me a message.</p>
-                <div class="section"></div>
-            </div>
-            <div class="col s12 m12 l8 left-align">
-                <form id="contactFrom" class="col s12">
-                    <div class="row">
-                        <div class="input-field col s12 m6 l6">
-                            <i class="material-icons prefix">account_circle</i>
-                            <input id="name" type="text" class="validate">
-                            <label for="name">Name</label>
-                        </div>
-                        <div class="input-field col s12 m6 l6">
-                            <i class="material-icons prefix">email</i>
-                            <input id="email" type="email" class="validate">
-                            <label for="email">Email</label>
-                        </div>
-                    </div>
-                    <div class="input-field">
-                        <i class="material-icons prefix">message</i>
-                        <input id="msg" type="text" class="validate">
-                        <label for="msg">Message</label>
-                    </div>
-                    <div class="center-align">
-                        <button class="btn waves-effect pink darken-2 waves-light" type="submit" name="action">Submit
-                            <i class="material-icons right">send</i>
-                        </button>
-                    </div>
-                </form>
-            </div>
+      <h3 class="center-align ubuntu blue-text">Contact</h3>
+      <h5 id="div-quote" class="center-align pink-text darken-2">
+        I would <i class="fas fa-heart"></i> hear from you.
+      </h5>
+      <div class="section"></div>
+      <div class="container row">
+        <div
+          class="col s12 m12 l4 center-align contact-info contact-info-border"
+        >
+          <div class="d-inline-flex" style="padding-top:15px;">
+            <i class="material-icons" style="padding-right:10px;"
+              >location_on</i
+            >
+            <p>Mohali, Punjab, India</p>
+          </div>
+          <br />
+          <div class="d-inline-flex" style="padding-top:15px;">
+            <i class="material-icons" style="padding-right:10px;"
+              >local_phone</i
+            >
+            <p>+91 8146-594-223</p>
+          </div>
+          <br />
+          <div class="d-inline-flex" style="padding-top:15px;">
+            <i class="material-icons" style="padding-right:10px;">mail</i>
+            <p>official.sujaykumar@gmail.com</p>
+          </div>
+          <p style="padding-top:15px;">
+            Swing by for a <i class="fa fa-coffee"></i>, or leave me a message.
+          </p>
+          <div class="section"></div>
         </div>
-        <div class="section"></div>
+        <div class="col s12 m12 l8 left-align">
+          <form id="contactFrom" class="col s12">
+            <div class="row">
+              <div class="input-field col s12 m6 l6">
+                <i class="material-icons prefix">account_circle</i>
+                <input id="name" type="text" class="validate" />
+                <label for="name">Name</label>
+              </div>
+              <div class="input-field col s12 m6 l6">
+                <i class="material-icons prefix">email</i>
+                <input id="email" type="email" class="validate" />
+                <label for="email">Email</label>
+              </div>
+            </div>
+            <div class="input-field">
+              <i class="material-icons prefix">message</i>
+              <input id="msg" type="text" class="validate" />
+              <label for="msg">Message</label>
+            </div>
+            <div class="center-align">
+              <button
+                class="btn waves-effect pink darken-2 waves-light"
+                type="submit"
+                name="action"
+              >
+                Submit
+                <i class="material-icons right">send</i>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="section"></div>
     </div>
-      
+
     <!-- Glitch Text -->
     <div class="section grey lighten-3">
-            <p class="center-align" style="font-family:'Conso', 'Ubuntu', 'Sans Serif'; margin: 0; color: rgb(54, 54, 54);">Designed & Developed with <i class="fas fa-heart"></i> by</p>
-            <p class="center-align" style="font-family:'Conso', 'Ubuntu', 'Sans Serif'; margin: 0; font-size: 15.5px;">
-                    <span class="green-text accent-3">0111 0011 0111 0101 0110 1010 0110 0001 0111 1001 </span>
-                    <span class="orange-text darken-4">0110 1011 0111 0101 0110 1101 0110 0001 0111 0010 </span> 
-                    <span class="deep-purple-text accent-3">0111 0011 0111 0101 0110 1101 0110 0001 0110 1110</span>
-            </p>
-            <p class="center-align red-text darken-1" style="font-family:'Conso', 'Ubuntu', 'Sans Serif'; margin: 0;">Happy <span class="blue-text accent-4" id="ing"></span></p>
+      <p
+        class="center-align"
+        style="font-family:'Conso', 'Ubuntu', 'Sans Serif'; margin: 0; color: rgb(54, 54, 54);"
+      >
+        Designed & Developed with <i class="fas fa-heart"></i> by
+      </p>
+      <p
+        class="center-align"
+        style="font-family:'Conso', 'Ubuntu', 'Sans Serif'; margin: 0; font-size: 15.5px;"
+      >
+        <span class="green-text accent-3"
+          >0111 0011 0111 0101 0110 1010 0110 0001 0111 1001
+        </span>
+        <span class="orange-text darken-4"
+          >0110 1011 0111 0101 0110 1101 0110 0001 0111 0010
+        </span>
+        <span class="deep-purple-text accent-3"
+          >0111 0011 0111 0101 0110 1101 0110 0001 0110 1110</span
+        >
+      </p>
+      <p
+        class="center-align red-text darken-1"
+        style="font-family:'Conso', 'Ubuntu', 'Sans Serif'; margin: 0;"
+      >
+        Happy <span class="blue-text accent-4" id="ing"></span>
+      </p>
     </div>
-    
+
     <!-- Social Button -->
     <div class="fixed-action-btn">
-        <a class="btn-floating btn-large indigo darken-2">
-            <i class="large material-icons">share</i>
-        </a>
-        <ul>
-            <li><a target="_blank" href="https://instagram.com/sujaykumarsuman" class="btn-floating purple accent-3"><i class="fab fa-instagram"></i></a></li>
-            <li><a target="_blank" href="https://github.com/sujaykumarsuman" class="btn-floating black"><i class="fab fa-github"></i></a></li>
-            <li><a target="_blank" href="https://hackerrank.com/skript" class="btn-floating green"><i class="fab fa-hackerrank"></i></a></li>
-            <li><a target="_blank" href="https://twitter.com/sujaykumarsuman" class="btn-floating blue"><i class="fab fa-twitter"></i></a></li>
-        </ul>
+      <a class="btn-floating btn-large indigo darken-2">
+        <i class="large material-icons">share</i>
+      </a>
+      <ul>
+        <li>
+          <a
+            target="_blank"
+            href="https://instagram.com/sujaykumarsuman"
+            class="btn-floating purple accent-3"
+            ><i class="fab fa-instagram"></i
+          ></a>
+        </li>
+        <li>
+          <a
+            target="_blank"
+            href="https://github.com/sujaykumarsuman"
+            class="btn-floating black"
+            ><i class="fab fa-github"></i
+          ></a>
+        </li>
+        <li>
+          <a
+            target="_blank"
+            href="https://hackerrank.com/skript"
+            class="btn-floating green"
+            ><i class="fab fa-hackerrank"></i
+          ></a>
+        </li>
+        <li>
+          <a
+            target="_blank"
+            href="https://twitter.com/sujaykumarsuman"
+            class="btn-floating blue"
+            ><i class="fab fa-twitter"></i
+          ></a>
+        </li>
+      </ul>
     </div>
 
     <!-- JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="main.js"></script>
-</body>
+  </body>
 </html>
