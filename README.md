@@ -4,9 +4,9 @@ I am [Sujay Kumar](https://sujaykumar.tk)
 ## Getting Started
 It is complete ready to use Responsive portfolio template. It is a basic website made with HTML, CSS, JS.
 
-To View this Website online visit [here](https://sujaykumar.tk/) 
+To View this Website online visit [here](https:sujaykumarsuman.github.io/) 
 ***or*** 
-Paste https://sujaykumar.tk/ in browser
+Paste https://sujaykumarsuman.github.io/ in browser
 
 ### Show some :heart: and :star: the repo to support the project. 
 For more contact me @[facebook](https://www.facebook.com/timeline.sujay), @[Twitter](https://www.twitter.com/sujaykumarsuman) or @[My Website](https://sujaykumar.tk)
