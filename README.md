@@ -25,7 +25,7 @@ I welcome and encourage all pull requests. It usually will take me within 10-21 
 
 ### Created By
 [Sujay](https://github.com/sujaykumarsuman) ([Facebook](https://www.facebook.com/timeline.sujay)) ([Linkedin](https://www.linkedin.com/in/sujaykumarsuman)) ([Hackerrank](https://www.hackerrank.com/skript))
-([Website](https://sujaykumar.tk))([Twitter](https://www.twitter.com/sujaykumar))
+([Website](https://sujaykumarsuman.github.io/))([Twitter](https://www.twitter.com/sujaykumar))
 
 ### Implementation
 
@@ -41,4 +41,4 @@ Keep Developing and Playing.
 
 ## Follow
 [Sujay](https://github.com/sujaykumarsuman) ([Facebook](https://www.facebook.com/timeline.sujay)) ([Linkedin](https://www.linkedin.com/in/sujaykumarsuman)) ([Hackerrank](https://www.hackerrank.com/skript))
-([Website](https://sujaykumar.tk))([Twitter](https://www.twitter.com/sujaykumar))
+([Website](https:sujaykumarsuman.github.io/))([Twitter](https://www.twitter.com/sujaykumar))
