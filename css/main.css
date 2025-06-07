@@ -20,9 +20,35 @@ body {
 
 h1 {
   color: var(--text-color);
-  font-size: 50px;
-  letter-spacing: -5px;
-  margin-bottom: 20px;
+  font-size: 48px;
+  letter-spacing: -1px;
+  margin-bottom: 30px;
+}
+
+.typewriter {
+  overflow: hidden;
+  border-right: 0.15em solid var(--text-color);
+  white-space: nowrap;
+  animation: typing 2s steps(20, end), blink-caret 0.75s step-end infinite;
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes blink-caret {
+  from,
+  to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: var(--text-color);
+  }
 }
 
 h2 {
@@ -62,7 +88,7 @@ nav ul li {
 }
 
 .container {
-  max-width: 600px;
+  max-width: 650px;
   margin: auto;
   height: 70vh;
   display: flex;
