@@ -7,6 +7,9 @@ window.addEventListener('DOMContentLoaded', () => {
     root.classList.add('theme-light');
   } else {
     root.classList.add('theme-dark');
+    if (!saved) {
+      localStorage.setItem('theme', 'dark');
+    }
   }
   if (toggleBtn) {
     toggleBtn.addEventListener('click', () => {
