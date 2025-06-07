@@ -1,0 +1,15 @@
+{
+  "name": "sujaykumarsuman.github.io",
+  "version": "1.0.0",
+  "description": "Personal website served with Node.js",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"No tests specified\" && exit 0"
+  },
+  "author": "Sujay Kumar Suman",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
