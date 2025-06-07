@@ -1,0 +1,12 @@
+[
+  {
+    "name": "Portfolio Website",
+    "description": "Personal portfolio built with HTML, CSS and JavaScript",
+    "url": "https://sujaykumarsuman.github.io"
+  },
+  {
+    "name": "Blog Template",
+    "description": "Static blog powered by Markdown and Jekyll",
+    "url": "https://github.com/sujaykumarsuman/blog-template"
+  }
+]
