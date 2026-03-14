@@ -445,7 +445,7 @@
   }
 
   function buildProfileChip(link) {
-    var target = link.newTab ? ' target="_blank" rel="noreferrer"' : "";
+    var target = link.newTab ? ' target="_blank" rel="noopener noreferrer"' : "";
 
     return (
       '<a class="profile-chip" href="' +
@@ -509,7 +509,7 @@
 
   function buildActionButton(action) {
     var style = action.style || "button-ghost";
-    var target = action.newTab ? ' target="_blank" rel="noreferrer"' : "";
+    var target = action.newTab ? ' target="_blank" rel="noopener noreferrer"' : "";
 
     return (
       '<a class="button ' +
