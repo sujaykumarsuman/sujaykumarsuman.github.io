@@ -526,6 +526,10 @@ ul {
   margin-bottom: 18px;
 }
 
+.section-heading .supporting-copy {
+  max-width: 66ch;
+}
+
 .section-heading h2,
 .subpage-hero h1,
 .footer-shell h2 {
@@ -535,7 +539,9 @@ ul {
 
 .metric-grid,
 .preview-grid,
-.profile-chip-grid {
+.profile-chip-grid,
+.timeline-grid,
+.contact-card-grid {
   display: grid;
   gap: 18px;
 }
@@ -545,8 +551,13 @@ ul {
 }
 
 .preview-grid,
-.profile-chip-grid {
+.profile-chip-grid,
+.contact-card-grid {
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.timeline-grid {
+  grid-template-columns: 1fr;
 }
 
 .metric-card,
@@ -591,6 +602,18 @@ ul {
   gap: 14px;
 }
 
+.timeline-card,
+.contact-cta-card {
+  padding: 28px;
+}
+
+.timeline-card,
+.contact-cta-card,
+.info-panel {
+  display: grid;
+  gap: 14px;
+}
+
 .experience-head {
   display: flex;
   align-items: flex-start;
@@ -622,6 +645,38 @@ ul {
   gap: 10px;
 }
 
+.timeline-summary,
+.skill-group-summary,
+.copy-feedback {
+  color: var(--text-muted);
+  line-height: 1.65;
+}
+
+.metric-pill-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.metric-pill {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  padding: 0 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(214, 255, 77, 0.16);
+  background: rgba(214, 255, 77, 0.08);
+  color: var(--lime);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.experience-tech {
+  padding-top: 4px;
+}
+
 .skill-group-grid {
   display: grid;
   gap: 18px;
@@ -642,6 +697,10 @@ ul {
 .skill-group-title {
   color: var(--text-main);
   font-size: 0.7rem;
+}
+
+.skill-group-summary {
+  max-width: 64ch;
 }
 
 .tag-row {
@@ -689,6 +748,22 @@ ul {
 .profile-note {
   color: var(--text-dim);
   font-size: 0.7rem;
+}
+
+.contact-address {
+  font-size: 1.35rem;
+  line-height: 1.2;
+  word-break: break-word;
+}
+
+.copy-feedback {
+  min-height: 1.65em;
+}
+
+.button.is-success {
+  border-color: rgba(214, 255, 77, 0.32);
+  background: linear-gradient(180deg, rgba(214, 255, 77, 0.2), rgba(214, 255, 77, 0.08));
+  color: var(--text-main);
 }
 
 .subpage-hero {
@@ -801,7 +876,8 @@ ul {
 
   .metric-grid,
   .preview-grid,
-  .profile-chip-grid {
+  .profile-chip-grid,
+  .contact-card-grid {
     grid-template-columns: 1fr;
   }
 
