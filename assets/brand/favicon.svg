@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Sujay Kumar favicon">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b1728" />
+      <stop offset="100%" stop-color="#07111f" />
+    </linearGradient>
+    <linearGradient id="glow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6ff3ff" />
+      <stop offset="100%" stop-color="#d6ff4d" />
+    </linearGradient>
+  </defs>
+  <path d="M18 34 34 18h60l16 16v60l-16 16H34L18 94Z" fill="url(#bg)" stroke="#6ff3ff" stroke-opacity=".45"
+    stroke-width="3" />
+  <path d="M28 40 40 28h48l12 12v48l-12 12H40L28 88Z" fill="none" stroke="#6ff3ff" stroke-opacity=".22"
+    stroke-width="2" />
+  <path d="M28 64h72" stroke="#6ff3ff" stroke-opacity=".36" stroke-width="2" />
+  <path d="M36 92h20m36-56h-8m-48 0h28" stroke="#d6ff4d" stroke-opacity=".5" stroke-width="2"
+    stroke-linecap="round" />
+  <text x="64" y="76" text-anchor="middle" fill="url(#glow)" font-family="JetBrains Mono, monospace" font-size="40"
+    letter-spacing="4">SK</text>
+</svg>
