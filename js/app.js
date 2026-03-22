@@ -3,15 +3,9 @@
  *
  * Responsibilities:
  *  1. Fetch /data/portfolio.json
- *  2. Detect current page via <body data-page="...">
- *  3. Call renderer functions for shared components (nav, footer)
- *  4. Call page-specific renderer function
- *  5. Inject results into data-mount anchors
- *  6. Attach interactive event listeners
- *
- * Rules:
- *  - No content lives here. All strings come from portfolio.json via renderer.js.
- *  - Only change this file to wire new pages or add new event behavior.
+ *  2. Render left panel (name, nav, socials) and right panel (all sections)
+ *  3. Wire scrollspy via IntersectionObserver
+ *  4. Attach copy-email and any other event listeners
  */
 
 'use strict';
@@ -29,99 +23,79 @@
     return;
   }
 
-  // --- Set document title and meta description ---
-  const page = document.body.dataset.page || 'home';
-  setDocMeta(data, page);
+  // --- Set document meta ---
+  document.title = `${data.meta.name} — ${data.meta.role}`;
+  setMeta('description', data.home.summary);
+  setOG(data);
 
-  // --- Shared: nav ---
-  const navMount = document.querySelector('[data-mount="nav"]');
-  if (navMount) {
-    navMount.innerHTML = renderNav(data.nav, window.location.pathname, data.meta);
-  }
+  // --- Render layout ---
+  const layoutEl = document.querySelector('[data-mount="layout"]');
+  if (!layoutEl) return;
 
-  // --- Shared: footer ---
-  const footerMount = document.querySelector('[data-mount="footer"]');
-  if (footerMount) {
-    footerMount.innerHTML = renderFooter(data.meta, data.links, data.footer);
-  }
+  layoutEl.innerHTML = renderLeftPanel(data) + renderRightPanel(data);
 
-  // --- Page-specific content ---
-  const contentMount = document.querySelector('[data-mount="content"]');
-  if (contentMount) {
-    switch (page) {
-      case 'home':
-        contentMount.innerHTML = renderHomePage(data);
-        break;
-      case 'journey':
-        contentMount.innerHTML = renderJourneyPage(data);
-        break;
-      case 'stack':
-        contentMount.innerHTML = renderStackPage(data);
-        break;
-      case 'connect':
-        contentMount.innerHTML = renderConnectPage(data);
-        break;
-      case 'not-found':
-        contentMount.innerHTML = renderNotFoundPage();
-        break;
-      default:
-        contentMount.innerHTML = renderNotFoundPage();
-    }
-  }
+  // --- Scrollspy ---
+  initScrollspy();
 
-  // --- Event listeners ---
-  attachCopyButtons();
+  // --- Copy email buttons ---
+  attachCopyButtons(data.meta.email);
 })();
+
+/* ============================================================
+   SCROLLSPY
+   ============================================================ */
+
+function initScrollspy() {
+  const sections = document.querySelectorAll('section[id]');
+  const navItems = document.querySelectorAll('.left-nav__item[data-nav-item]');
+
+  if (!sections.length || !navItems.length) return;
+
+  function setActive(id) {
+    navItems.forEach(item => {
+      const matches = item.dataset.navItem === id;
+      item.classList.toggle('active', matches);
+    });
+  }
+
+  // Set first section active on load
+  setActive(sections[0].id);
+
+  const observer = new IntersectionObserver(
+    entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          setActive(entry.target.id);
+        }
+      });
+    },
+    {
+      // Trigger when section crosses the middle of the viewport
+      rootMargin: '-40% 0px -55% 0px',
+      threshold: 0,
+    }
+  );
+
+  sections.forEach(section => observer.observe(section));
+
+  // Smooth scroll on nav click
+  navItems.forEach(item => {
+    item.addEventListener('click', e => {
+      e.preventDefault();
+      const id = item.dataset.navItem;
+      const target = document.getElementById(id);
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+}
 
 /* ============================================================
    HELPERS
    ============================================================ */
 
-function setDocMeta(data, page) {
-  const titles = {
-    home:      `${data.meta.name} — ${data.meta.role}`,
-    journey:   `Journey — ${data.meta.name}`,
-    stack:     `Stack — ${data.meta.name}`,
-    connect:   `Connect — ${data.meta.name}`,
-    'not-found': `404 — ${data.meta.domain}`,
-  };
-
-  const descs = {
-    home:    data.home.summary,
-    journey: data.journey.summary,
-    stack:   data.stack.summary,
-    connect: data.connect.summary,
-    'not-found': 'Page not found.',
-  };
-
-  document.title = titles[page] || titles.home;
-
-  const descEl = document.querySelector('meta[name="description"]');
-  if (descEl) descEl.setAttribute('content', descs[page] || descs.home);
-
-  // Open Graph
-  setMetaProperty('og:title', titles[page] || titles.home);
-  setMetaProperty('og:description', descs[page] || descs.home);
-  setMetaProperty('og:url', window.location.href);
-  setMetaProperty('og:type', 'website');
-
-  // Twitter
-  setMetaName('twitter:card', 'summary');
-  setMetaName('twitter:title', titles[page] || titles.home);
-  setMetaName('twitter:description', descs[page] || descs.home);
-}
-
-function setMetaProperty(prop, content) {
-  let el = document.querySelector(`meta[property="${prop}"]`);
-  if (!el) {
-    el = document.createElement('meta');
-    el.setAttribute('property', prop);
-    document.head.appendChild(el);
-  }
-  el.setAttribute('content', content);
-}
-
-function setMetaName(name, content) {
+function setMeta(name, content) {
   let el = document.querySelector(`meta[name="${name}"]`);
   if (!el) {
     el = document.createElement('meta');
@@ -131,38 +105,44 @@ function setMetaName(name, content) {
   el.setAttribute('content', content);
 }
 
-function attachCopyButtons() {
-  document.querySelectorAll('[data-copy]').forEach(btn => {
+function setOG(data) {
+  const og = {
+    'og:title':       `${data.meta.name} — ${data.meta.role}`,
+    'og:description': data.home.summary,
+    'og:url':         window.location.href,
+    'og:type':        'website',
+  };
+  Object.entries(og).forEach(([prop, val]) => {
+    let el = document.querySelector(`meta[property="${prop}"]`);
+    if (!el) {
+      el = document.createElement('meta');
+      el.setAttribute('property', prop);
+      document.head.appendChild(el);
+    }
+    el.setAttribute('content', val);
+  });
+}
+
+function attachCopyButtons(email) {
+  document.querySelectorAll('[data-copy-email]').forEach(btn => {
     btn.addEventListener('click', async () => {
-      const text = btn.dataset.copy;
       try {
-        await navigator.clipboard.writeText(text);
-        const original = btn.textContent;
+        await navigator.clipboard.writeText(email);
+        const orig = btn.textContent;
         btn.textContent = 'Copied!';
-        btn.setAttribute('data-copied', 'true');
-        setTimeout(() => {
-          btn.textContent = original;
-          btn.removeAttribute('data-copied');
-        }, 2000);
-      } catch {
-        // Clipboard not available — silently ignore
-      }
+        setTimeout(() => { btn.textContent = orig; }, 2000);
+      } catch { /* silent */ }
     });
   });
 }
 
 function showError() {
-  const body = document.body;
-  body.innerHTML = `
-    <div style="
-      display: flex; align-items: center; justify-content: center;
-      min-height: 100vh; font-family: monospace; color: #7d8590;
-      background: #0d1117; text-align: center; padding: 2rem;
-    ">
+  document.body.innerHTML = `
+    <div style="display:flex;align-items:center;justify-content:center;min-height:100vh;
+      font-family:monospace;color:#8892b0;background:#0a192f;text-align:center;padding:2rem;">
       <div>
-        <div style="font-size: 3rem; color: #21262d; margin-bottom: 1rem;">⚠</div>
-        <p style="margin-bottom: 0.5rem; color: #e6edf3;">Failed to load portfolio data.</p>
-        <p style="font-size: 0.8rem;">Check that /data/portfolio.json is accessible.</p>
+        <p style="color:#ccd6f6;margin-bottom:0.5rem;">Failed to load portfolio data.</p>
+        <p style="font-size:0.8rem;">Check that /data/portfolio.json is accessible (requires HTTP server, not file://).</p>
       </div>
     </div>
   `;

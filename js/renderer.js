@@ -11,7 +11,7 @@
 'use strict';
 
 /* ============================================================
-   ESCAPE HELPER — always use for any data-derived string
+   ESCAPE HELPER
    ============================================================ */
 
 function esc(str) {
@@ -25,164 +25,151 @@ function esc(str) {
 }
 
 /* ============================================================
-   NAV
+   SVG ICONS (inline — no external requests)
    ============================================================ */
 
-/**
- * @param {Array<{href: string, label: string}>} navItems
- * @param {string} currentPath  — window.location.pathname
- * @returns {string} HTML
- */
-function renderNav(navItems, currentPath, meta) {
-  function isActive(href) {
-    const norm = currentPath.replace(/\/index\.html$/, '/');
-    if (href === '/') return norm === '/';
-    return norm.startsWith(href);
-  }
-
-  const links = navItems.map(item => `
-    <a
-      href="${esc(item.href)}"
-      class="nav__link${isActive(item.href) ? ' nav__link--active' : ''}"
-      ${isActive(item.href) ? 'aria-current="page"' : ''}
-    >${esc(item.label)}</a>
-  `).join('');
-
-  const shortName = meta && meta.shortName ? meta.shortName : 'SK';
-  const domain = meta && meta.domain ? meta.domain : '';
-
-  return `
-    <nav class="nav" aria-label="Site navigation">
-      <div class="nav__inner">
-        <a href="/" class="nav__brand" aria-label="${esc(domain)} home">
-          <span>${esc(shortName)}</span><span class="nav__brand-domain"> / ${esc(domain)}</span>
-        </a>
-        <div class="nav__links" role="list">
-          ${links}
-        </div>
-      </div>
-    </nav>
-  `;
-}
+const ICONS = {
+  github: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>`,
+  linkedin: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>`,
+  leetcode: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.83 5.83 0 0 0 .349 1.017 5.938 5.938 0 0 0 1.271 1.818l4.277 4.193.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.392c.54-.54.54-1.414.003-1.955a1.378 1.378 0 0 0-1.951-.003l-2.396 2.392a3.021 3.021 0 0 1-4.205.038l-.02-.019-4.276-4.193c-.652-.64-.972-1.469-.948-2.263a2.68 2.68 0 0 1 .066-.523 2.545 2.545 0 0 1 .619-1.164L9.13 8.114c1.058-1.134 3.204-1.27 4.43-.278l3.501 2.831c.593.48 1.461.387 1.94-.207a1.384 1.384 0 0 0-.207-1.943l-3.5-2.831c-.8-.647-1.766-1.045-2.774-1.202l2.015-2.158A1.384 1.384 0 0 0 13.483 0zm-2.866 12.815a1.38 1.38 0 0 0-1.38 1.382 1.38 1.38 0 0 0 1.38 1.382H20.79a1.38 1.38 0 0 0 1.38-1.382 1.38 1.38 0 0 0-1.38-1.382z"/></svg>`,
+  external: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14 21 3"/></svg>`,
+};
 
 /* ============================================================
-   FOOTER
+   LEFT PANEL
    ============================================================ */
 
-/**
- * @param {object} meta
- * @param {Array}  links
- * @param {object} footer
- * @returns {string} HTML
- */
-function renderFooter(meta, links, footer) {
-  const chips = links.map(link => `
+function renderLeftPanel(data) {
+  const navItems = data.nav.map(item => `
     <a
-      href="${esc(link.href)}"
-      class="profile-chip"
-      ${link.newTab ? 'target="_blank" rel="noopener noreferrer"' : ''}
+      href="${esc(item.href)}"
+      class="left-nav__item"
+      data-nav-item="${esc(item.href.replace('#', ''))}"
     >
-      ${esc(link.label)}
-      <span class="profile-chip__note">${esc(link.note)}</span>
+      <span class="left-nav__indicator" aria-hidden="true"></span>
+      ${esc(item.label)}
     </a>
   `).join('');
 
-  const year = new Date().getFullYear();
+  const linkedinHref = (data.links.find(l => l.label === 'LinkedIn') || {}).href || '#';
+  const leetcodeHref = (data.links.find(l => l.label === 'LeetCode') || {}).href || '#';
 
   return `
-    <footer class="footer">
-      <div class="footer__inner">
-        <p class="footer__heading">${esc(footer.heading)}</p>
-        <p class="footer__summary">${esc(footer.summary)}</p>
-        <div class="footer__links">${chips}</div>
-        <div class="footer__bottom">
-          <span class="footer__copy">
-            &copy; ${year} ${esc(meta.name)} &middot; ${esc(meta.domain)}
-          </span>
-          <span class="footer__status">
-            <span class="status-dot" aria-hidden="true"></span>
-            ${esc(meta.status)}
-          </span>
-        </div>
+    <aside class="left-panel" aria-label="Site information">
+      <div class="left-intro">
+        <h1 class="left-name">${esc(data.meta.name)}</h1>
+        <h2 class="left-role">${esc(data.meta.role)}</h2>
+        <p class="left-tagline">${esc(data.home.summary)}</p>
+        <nav class="left-nav" aria-label="Page sections">
+          ${navItems}
+        </nav>
       </div>
-    </footer>
+      <div class="left-socials">
+        <a href="${esc(data.meta.githubUrl)}" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+          ${ICONS.github}
+        </a>
+        <a href="${esc(linkedinHref)}" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+          ${ICONS.linkedin}
+        </a>
+        <a href="${esc(leetcodeHref)}" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="LeetCode">
+          ${ICONS.leetcode}
+        </a>
+      </div>
+    </aside>
   `;
 }
 
 /* ============================================================
-   STAT CARDS
+   ABOUT SECTION
    ============================================================ */
 
-/**
- * @param {Array<{value, label, detail}>} stats
- * @returns {string} HTML
- */
-function renderStats(stats) {
-  const cards = stats.map(s => `
-    <div class="stat-card">
-      <div class="stat-card__value">${esc(s.value)}</div>
-      <div class="stat-card__label">${esc(s.label)}</div>
-      <div class="stat-card__detail">${esc(s.detail)}</div>
+function renderAboutSection(data) {
+  const bio = data.about.bio.map(p => `<p>${esc(p)}</p>`).join('');
+
+  const stats = data.stats.map(s => `
+    <div class="about-stat">
+      <div class="about-stat__value">${esc(s.value)}</div>
+      <div class="about-stat__label">${esc(s.label)}</div>
     </div>
   `).join('');
 
-  return `<div class="stats-grid">${cards}</div>`;
+  return `
+    <section id="about" class="section" aria-label="About">
+      <div class="section-label" aria-hidden="true">About</div>
+      <div class="about-bio">${bio}</div>
+      <div class="about-stats">${stats}</div>
+    </section>
+  `;
 }
 
 /* ============================================================
-   EXPERIENCE CARDS
+   EXPERIENCE SECTION
    ============================================================ */
 
-/**
- * @param {Array} experience
- * @param {object} opts  — { limit: number|null }
- * @returns {string} HTML
- */
-function renderExperience(experience, opts) {
-  const limit = (opts && opts.limit) ? opts.limit : experience.length;
-  const jobs = experience.slice(0, limit);
+function renderExperienceSection(data) {
+  const companyLinks = {
+    'HashiCorp': 'https://www.hashicorp.com',
+    'Infoblox': 'https://www.infoblox.com',
+    'Nokia Solutions & Networks': 'https://www.nokia.com',
+  };
 
-  const cards = jobs.map(job => {
+  const items = data.experience.map(job => {
     const highlights = job.highlights.map(h => `
-      <li class="exp-card__highlight">${esc(h)}</li>
+      <li class="exp-item__highlight">${esc(h)}</li>
     `).join('');
 
-    const tech = job.tech.map(t => `
-      <span class="tech-tag">${esc(t)}</span>
+    const tags = job.tech.map(t => `
+      <span class="tag">${esc(t)}</span>
     `).join('');
+
+    const companyUrl = companyLinks[job.company] || '#';
 
     return `
-      <article class="exp-card">
-        <div class="exp-card__header">
-          <div>
-            <div class="exp-card__company">${esc(job.company)}</div>
-            <div class="exp-card__role">${esc(job.role)}</div>
+      <div class="exp-item">
+        <div class="exp-item__period">${esc(job.period)}</div>
+        <div class="exp-item__body">
+          <div class="exp-item__header">
+            <span class="exp-item__role">${esc(job.role)}</span>
+            <span aria-hidden="true">·</span>
+            <a
+              href="${esc(companyUrl)}"
+              class="exp-item__company-link"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span class="exp-item__company">${esc(job.company)}</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:12px;height:12px;flex-shrink:0" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </a>
           </div>
-          <div class="exp-card__meta">
-            <span class="exp-card__period">${esc(job.period)}</span>
-            <span class="exp-card__location">${esc(job.location)}</span>
-          </div>
+          <p class="exp-item__summary">${esc(job.summary)}</p>
+          <ul class="exp-item__highlights">${highlights}</ul>
+          <div class="exp-item__tags">${tags}</div>
         </div>
-        <p class="exp-card__summary">${esc(job.summary)}</p>
-        <ul class="exp-card__highlights">${highlights}</ul>
-        <div class="exp-card__tech">${tech}</div>
-      </article>
+      </div>
     `;
   }).join('');
 
-  return `<div class="experience-list">${cards}</div>`;
+  return `
+    <section id="experience" class="section" aria-label="Experience">
+      <div class="section-label" aria-hidden="true">Experience</div>
+      <div class="exp-list">${items}</div>
+      <a
+        href="${esc(data.meta.resumeUrl)}"
+        class="resume-link"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="View full resume (opens in new tab)"
+      >View Full Resume</a>
+    </section>
+  `;
 }
 
 /* ============================================================
-   SKILL GROUPS
+   STACK SECTION
    ============================================================ */
 
-/**
- * @param {Array<{name, summary, items}>} skills
- * @returns {string} HTML
- */
-function renderSkills(skills) {
-  const groups = skills.map(group => {
+function renderStackSection(data) {
+  const groups = data.skills.map(group => {
     const items = group.items.map(item => `
       <span class="skill-tag">${esc(item)}</span>
     `).join('');
@@ -196,335 +183,79 @@ function renderSkills(skills) {
     `;
   }).join('');
 
-  return `<div class="skills-grid">${groups}</div>`;
-}
-
-/* ============================================================
-   FOCUS PANEL
-   ============================================================ */
-
-/**
- * @param {string} title
- * @param {string} summary
- * @param {string[]} list
- * @returns {string} HTML
- */
-function renderFocusPanel(title, summary, list) {
-  const items = list.map(item => `
-    <li class="focus-list__item">${esc(item)}</li>
-  `).join('');
-
   return `
-    <div class="focus-panel">
-      <div class="focus-panel__title">${esc(title)}</div>
-      <p class="focus-panel__summary">${esc(summary)}</p>
-      <ul class="focus-list">${items}</ul>
-    </div>
+    <section id="stack" class="section" aria-label="Tech stack">
+      <div class="section-label" aria-hidden="true">Stack</div>
+      <div class="skills-grid">${groups}</div>
+    </section>
   `;
 }
 
 /* ============================================================
-   INFO PANEL (reusable labeled panel with optional list)
+   CONNECT SECTION
    ============================================================ */
 
-/**
- * @param {object} opts — { label, title, summary, list? }
- * @returns {string} HTML
- */
-function renderInfoPanel(opts) {
-  const listHtml = opts.list ? `
-    <ul class="info-list">
-      ${opts.list.map(item => `<li class="info-list__item">${esc(item)}</li>`).join('')}
-    </ul>
-  ` : '';
+function renderConnectSection(data) {
+  const c = data.connect;
+  const emailHref = `mailto:${esc(data.meta.email)}`;
 
-  return `
-    <div class="info-panel">
-      ${opts.label ? `<span class="info-panel__label">${esc(opts.label)}</span>` : ''}
-      <div class="info-panel__title">${esc(opts.title)}</div>
-      <p class="info-panel__summary">${esc(opts.summary)}</p>
-      ${listHtml}
-    </div>
-  `;
-}
-
-/* ============================================================
-   EDUCATION CARD
-   ============================================================ */
-
-/**
- * @param {object} edu — { degree, institution, period }
- * @returns {string} HTML
- */
-function renderEducation(edu) {
-  return `
-    <div class="edu-card">
-      <div class="edu-card__degree">${esc(edu.degree)}</div>
-      <div class="edu-card__institution">${esc(edu.institution)}</div>
-      <div class="edu-card__period">${esc(edu.period)}</div>
-    </div>
-  `;
-}
-
-/* ============================================================
-   PROFILE LINK CHIPS
-   ============================================================ */
-
-/**
- * @param {Array<{label, href, note, newTab}>} links
- * @returns {string} HTML
- */
-function renderProfileLinks(links) {
-  const chips = links.map(link => `
+  const links = data.links.map(link => `
     <a
       href="${esc(link.href)}"
       class="profile-chip"
       ${link.newTab ? 'target="_blank" rel="noopener noreferrer"' : ''}
     >
       ${esc(link.label)}
-      <span class="profile-chip__note">${esc(link.note)}</span>
     </a>
   `).join('');
 
-  return `<div class="profile-links">${chips}</div>`;
-}
-
-/* ============================================================
-   BUTTON HELPERS
-   ============================================================ */
-
-/**
- * @param {Array<{label, href, style, newTab?, id?}>} ctas
- * @returns {string} HTML
- */
-function renderCtas(ctas) {
-  const buttons = ctas.map(cta => {
-    const styleClass = `btn--${esc(cta.style)}`;
-    const extra = cta.newTab ? 'target="_blank" rel="noopener noreferrer"' : '';
-    const id = cta.id ? `id="${esc(cta.id)}"` : '';
-    return `
-      <a href="${esc(cta.href)}" class="btn ${styleClass}" ${extra} ${id}>${esc(cta.label)}</a>
-    `;
-  }).join('');
-
-  return `<div class="btn-group">${buttons}</div>`;
-}
-
-/* ============================================================
-   HOME PAGE
-   ============================================================ */
-
-function renderHomePage(data) {
-  const h = data.home;
-
   return `
-    <section class="hero" aria-label="Introduction">
-      <div class="hero__inner">
-        <span class="eyebrow">${esc(h.eyebrow)}</span>
-        <h1 class="hero__headline">${esc(h.headline)}</h1>
-        <p class="hero__summary">${esc(h.summary)}</p>
-        ${renderCtas(h.ctas)}
-      </div>
-    </section>
-
-    <section class="section" aria-label="Key metrics">
-      <div class="container">
-        ${renderStats(data.stats)}
-      </div>
-    </section>
-
-    <section class="section section--sm" aria-label="Focus areas">
-      <div class="container">
-        ${renderFocusPanel(h.focusTitle, h.focusSummary, h.focusList)}
-      </div>
-    </section>
-
-    <section class="section section--sm" aria-label="Recent experience">
-      <div class="container">
-        <span class="eyebrow">Recent work</span>
-        <h2 class="section-heading">Experience highlights</h2>
-        ${renderExperience(data.experience, { limit: 2 })}
-        <div style="margin-top: var(--space-6);">
-          <a href="/journey/" class="btn btn--ghost">View full journey</a>
-        </div>
-      </div>
-    </section>
-
-    <section class="section section--sm" aria-label="Tech stack">
-      <div class="container">
-        <span class="eyebrow">Tech stack</span>
-        <h2 class="section-heading">Skills & tools</h2>
-        ${renderSkills(data.skills.slice(0, 3))}
-        <div style="margin-top: var(--space-6);">
-          <a href="/stack/" class="btn btn--ghost">View full stack</a>
-        </div>
+    <section id="connect" class="section" aria-label="Connect">
+      <div class="section-label" aria-hidden="true">Connect</div>
+      <div class="connect-body">
+        <h2 class="connect-heading">${esc(c.headline)}</h2>
+        <p class="connect-summary">${esc(c.summary)}</p>
+        <a href="${emailHref}" class="connect-cta">Say hello</a>
+        <div class="connect-links">${links}</div>
       </div>
     </section>
   `;
 }
 
 /* ============================================================
-   JOURNEY PAGE
+   FOOTER
    ============================================================ */
 
-function renderJourneyPage(data) {
-  const j = data.journey;
-
+function renderFooter(data) {
+  const year = new Date().getFullYear();
   return `
-    <header class="page-header" aria-label="Page header">
-      <div class="page-header__inner">
-        <span class="eyebrow">${esc(j.eyebrow)}</span>
-        <h1 class="section-heading">${esc(j.headline)}</h1>
-        <p class="section-summary">${esc(j.summary)}</p>
-      </div>
-    </header>
-
-    <section class="section" aria-label="Work experience">
-      <div class="container">
-        <span class="eyebrow">Work</span>
-        <h2 class="section-heading">Experience</h2>
-        ${renderExperience(data.experience)}
-      </div>
-    </section>
-
-    <section class="section section--sm" aria-label="Education and profile">
-      <div class="container">
-        <div class="panel-grid">
-          ${renderInfoPanel({
-            label: 'Operating profile',
-            title: j.profileTitle,
-            summary: j.profileSummary,
-            list: j.profileList
-          })}
-          <div>
-            <span class="eyebrow" style="margin-bottom: var(--space-4);">Education</span>
-            ${renderEducation(data.education)}
-          </div>
-        </div>
-      </div>
-    </section>
+    <footer class="site-footer" aria-label="Site footer">
+      <p class="site-footer__text">
+        Designed &amp; built by
+        <a href="${esc(data.meta.githubUrl)}" target="_blank" rel="noopener noreferrer">${esc(data.meta.name)}</a>
+        &mdash; ${year}
+      </p>
+      <p class="site-footer__text" style="margin-top:0.25rem">
+        <span style="color:var(--color-text-faint)">
+          Built with vanilla HTML, CSS &amp; JS &mdash; no frameworks, no build step.
+        </span>
+      </p>
+    </footer>
   `;
 }
 
 /* ============================================================
-   STACK PAGE
+   RIGHT PANEL (all sections)
    ============================================================ */
 
-function renderStackPage(data) {
-  const s = data.stack;
-
+function renderRightPanel(data) {
   return `
-    <header class="page-header" aria-label="Page header">
-      <div class="page-header__inner">
-        <span class="eyebrow">${esc(s.eyebrow)}</span>
-        <h1 class="section-heading">${esc(s.headline)}</h1>
-        <p class="section-summary">${esc(s.summary)}</p>
-      </div>
-    </header>
-
-    <section class="section" aria-label="Skills and tools">
-      <div class="container">
-        ${renderSkills(data.skills)}
-      </div>
-    </section>
-
-    <section class="section section--sm" aria-label="What I optimize for">
-      <div class="container">
-        ${renderInfoPanel({
-          label: 'Approach',
-          title: s.optimizeTitle,
-          summary: s.summary,
-          list: s.optimizeList
-        })}
-      </div>
-    </section>
-  `;
-}
-
-/* ============================================================
-   CONNECT PAGE
-   ============================================================ */
-
-function renderConnectPage(data) {
-  const c = data.connect;
-  const meta = data.meta;
-
-  const emailHref = `mailto:${esc(meta.email)}`;
-
-  return `
-    <header class="page-header" aria-label="Page header">
-      <div class="page-header__inner">
-        <span class="eyebrow">${esc(c.eyebrow)}</span>
-        <h1 class="section-heading">${esc(c.headline)}</h1>
-        <p class="section-summary">${esc(c.summary)}</p>
-      </div>
-    </header>
-
-    <section class="section" aria-label="Contact options">
-      <div class="container">
-        <div class="connect-grid">
-          <div class="contact-card">
-            <span class="contact-card__note">Fastest route</span>
-            <div class="contact-card__title">Email</div>
-            <p class="contact-card__body">Best for role discussions, collaboration, or a quick introduction.</p>
-            <div class="btn-group" style="margin-top: auto;">
-              <a href="${emailHref}" class="btn btn--primary">Compose email</a>
-              <button
-                class="btn btn--ghost btn--copy"
-                data-copy="${esc(meta.email)}"
-                aria-label="Copy email address"
-              >Copy address</button>
-            </div>
-          </div>
-
-          <div class="contact-card">
-            <span class="contact-card__note">Hosted PDF</span>
-            <div class="contact-card__title">Resume</div>
-            <p class="contact-card__body">Full role history, stack coverage, and impact bullets in one place.</p>
-            <div class="btn-group" style="margin-top: auto;">
-              <a href="${esc(meta.resumeUrl)}" class="btn btn--secondary" target="_blank" rel="noopener noreferrer">Open resume</a>
-            </div>
-          </div>
-        </div>
-
-        <div style="margin-top: var(--space-8);">
-          <p class="text-muted text-sm" style="margin-bottom: var(--space-4);">${esc(c.note)}</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="section section--sm" aria-label="Professional links">
-      <div class="container">
-        <span class="eyebrow">Profiles</span>
-        <h2 class="section-heading" style="margin-bottom: var(--space-6);">Professional links</h2>
-        ${renderProfileLinks(data.links)}
-      </div>
-    </section>
-
-    <section class="section section--sm" aria-label="Best fit">
-      <div class="container">
-        ${renderInfoPanel({
-          label: c.bestFitTitle,
-          title: c.bestFitTitle,
-          summary: 'The strongest alignment is with roles or discussions involving:',
-          list: c.bestFitList
-        })}
-      </div>
-    </section>
-  `;
-}
-
-/* ============================================================
-   404 PAGE
-   ============================================================ */
-
-function renderNotFoundPage() {
-  return `
-    <div class="error-page">
-      <div class="error-page__code" aria-hidden="true">404</div>
-      <h1 class="error-page__title">Page not found</h1>
-      <p class="error-page__summary">This path doesn't exist. Head back to the main portfolio.</p>
-      <a href="/" class="btn btn--primary">Go home</a>
-    </div>
+    <main id="main-content" class="right-panel" role="main">
+      ${renderAboutSection(data)}
+      ${renderExperienceSection(data)}
+      ${renderStackSection(data)}
+      ${renderConnectSection(data)}
+      ${renderFooter(data)}
+    </main>
   `;
 }

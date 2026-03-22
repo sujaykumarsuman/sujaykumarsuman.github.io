@@ -12,11 +12,18 @@
     "status": "Open to backend, platform, and distributed systems conversations."
   },
   "nav": [
-    { "href": "/", "label": "Home" },
-    { "href": "/journey/", "label": "Journey" },
-    { "href": "/stack/", "label": "Stack" },
-    { "href": "/connect/", "label": "Connect" }
+    { "href": "#about", "label": "About" },
+    { "href": "#experience", "label": "Experience" },
+    { "href": "#stack", "label": "Stack" },
+    { "href": "#connect", "label": "Connect" }
   ],
+  "about": {
+    "bio": [
+      "I'm a distributed systems engineer who builds Go services, Kubernetes-native controllers, and internal platforms that help teams ship faster without trading away reliability or operational clarity.",
+      "Currently at HashiCorp working on Consul — enterprise reliability, traffic routing, license reporting, and production on-call across HCP and self-managed environments. Before that, I spent over two years at Infoblox building a SaaS DDI platform from scratch: GitOps workflows, CRD-driven provisioning, service mesh controllers, and the tooling that made the platform debuggable by the teams running it.",
+      "My work consistently sits at the intersection of product capability and operational durability. I care about systems that are clear to reason about, safe to ship, and built to stay that way under real load."
+    ]
+  },
   "home": {
     "eyebrow": "sujaykumar.dev / distributed systems / platform engineering",
     "headline": "Distributed systems and platform workflows engineered for reliability at scale.",
