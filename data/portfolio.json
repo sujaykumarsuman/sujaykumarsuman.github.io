@@ -1,15 +1,10 @@
 {
-  "_version": "1.0.0",
   "meta": {
     "name": "Sujay Kumar Suman",
-    "shortName": "SK",
-    "role": "Backend Software Engineer",
-    "domain": "sujaykumar.dev",
+    "role": "Software Engineer",
     "email": "sujaykumar.dev@gmail.com",
-    "location": "Bengaluru, India",
     "resumeUrl": "/assets/resume/sujay_resume_v2.pdf",
-    "githubUrl": "https://github.com/sujaykumarsuman",
-    "status": "Open to backend, platform, and distributed systems conversations."
+    "githubUrl": "https://github.com/sujaykumarsuman"
   },
   "nav": [
     { "href": "#about", "label": "About" },
@@ -19,48 +14,30 @@
   ],
   "about": {
     "bio": [
-      "I'm a backend software engineer who builds Go services, Kubernetes-native controllers, and internal platforms that help teams ship faster without trading away reliability or operational clarity.",
+      "I'm a software engineer who builds Go services, Kubernetes-native controllers, and internal platforms that help teams ship faster without trading away reliability or operational clarity.",
       "Currently at HashiCorp working on Consul — enterprise reliability, traffic routing, license reporting, and production on-call across HCP and self-managed environments. Before that, I spent over two years at Infoblox building a SaaS DDI platform from scratch: GitOps workflows, CRD-driven provisioning, service mesh controllers, and the tooling that made the platform debuggable by the teams running it.",
       "My work consistently sits at the intersection of product capability and operational durability. I care about systems that are clear to reason about, safe to ship, and built to stay that way under real load."
     ]
   },
   "home": {
-    "eyebrow": "sujaykumar.dev / distributed systems / platform engineering",
-    "headline": "Distributed systems and platform workflows engineered for reliability at scale.",
-    "summary": "I build Go services, Kubernetes-native controllers, and internal platforms that help teams move faster without trading away operational control.",
-    "ctas": [
-      { "label": "Explore journey", "href": "/journey/", "style": "primary" },
-      { "label": "View stack", "href": "/stack/", "style": "secondary" },
-      { "label": "Open resume", "href": "/assets/resume/sujay_resume_v2.pdf", "style": "ghost", "newTab": true }
-    ],
-    "focusTitle": "What I work on",
-    "focusSummary": "The strongest pattern across the work is building clear, operable systems that reduce friction for engineers and lower risk in production.",
-    "focusList": [
-      "Go services and controllers for cloud-native platforms.",
-      "Distributed systems work with real reliability and operability constraints.",
-      "Infrastructure workflows that reduce manual toil and clarify ownership."
-    ]
+    "summary": "I build Go services, Kubernetes-native controllers, and internal platforms that help teams move faster without trading away operational control."
   },
   "stats": [
     {
       "value": "500+",
-      "label": "High severity fixes",
-      "detail": "Security remediation shipped in HCP Consul during a critical sunset window."
+      "label": "High severity fixes"
     },
     {
       "value": "900+",
-      "label": "Node-scale reliability",
-      "detail": "Consul login load distribution improvements for large Kubernetes clusters."
+      "label": "Node-scale reliability"
     },
     {
       "value": "<2h",
-      "label": "Cluster provisioning",
-      "detail": "GitOps resource workflows reduced cluster creation to under two hours."
+      "label": "Cluster provisioning"
     },
     {
-      "value": "4+",
-      "label": "Years in production systems",
-      "detail": "Hands-on work across storage, networking, controllers, and backend services."
+      "value": "~5",
+      "label": "Years in production systems"
     }
   ],
   "experience": [
@@ -68,7 +45,6 @@
       "company": "HashiCorp",
       "role": "Engineer 2",
       "period": "Feb 2025 \u2013 Present",
-      "location": "Bengaluru, India",
       "summary": "Working on Consul capabilities spanning enterprise reliability, traffic routing, license reporting, and customer-facing operations.",
       "tech": ["Consul", "Raft", "Kubernetes", "Service Mesh", "ACLs", "Go"],
       "highlights": [
@@ -83,7 +59,6 @@
       "company": "Infoblox",
       "role": "Software Engineer 2",
       "period": "Jul 2022 \u2013 Jan 2025",
-      "location": "Bengaluru, India",
       "summary": "Built Kubernetes-native platform services, GitOps workflows, and networking automation for a new SaaS DDI platform.",
       "tech": ["Go", "Kubernetes", "AWS", "FluxCD", "Crossplane", "KubeVela", "IPSec", "VxLAN", "OVS"],
       "highlights": [
@@ -97,7 +72,6 @@
       "company": "Nokia Solutions & Networks",
       "role": "Developer",
       "period": "Jul 2021 \u2013 Jun 2022",
-      "location": "Bengaluru, India",
       "summary": "Backend service integrations, storage abstractions, and reliability-oriented API work for production services.",
       "tech": ["Go", "OpenAPI", "MariaDB", "ElasticSearch", "MinIO"],
       "highlights": [
@@ -107,11 +81,6 @@
       ]
     }
   ],
-  "education": {
-    "degree": "B.E. in Computer Science and Engineering",
-    "institution": "Chandigarh University",
-    "period": "2017 \u2013 2021"
-  },
   "skills": [
     {
       "name": "Programming",
@@ -148,71 +117,26 @@
     {
       "label": "LinkedIn",
       "href": "https://www.linkedin.com/in/sujaykumarsuman/",
-      "note": "Professional profile",
       "newTab": true
     },
     {
       "label": "GitHub",
       "href": "https://github.com/sujaykumarsuman",
-      "note": "Code and experiments",
       "newTab": true
     },
     {
       "label": "LeetCode",
       "href": "https://leetcode.com/sujaykumarsuman/",
-      "note": "Problem solving",
-      "newTab": true
-    },
-    {
-      "label": "GeeksForGeeks",
-      "href": "https://auth.geeksforgeeks.org/user/sujaykumarsuman/profile",
-      "note": "Technical profile",
       "newTab": true
     },
     {
       "label": "Resume",
       "href": "/assets/resume/sujay_resume_v2.pdf",
-      "note": "Hosted PDF copy",
       "newTab": true
     }
   ],
   "connect": {
-    "eyebrow": "Connect / direct and low friction",
     "headline": "Email first, resume available, and professional profiles one click away.",
-    "summary": "Start with email for roles, backend and platform discussions, or collaboration.",
-    "note": "The fastest path is direct email.",
-    "bestFitTitle": "Best fit conversations",
-    "bestFitList": [
-      "Backend and platform engineering roles.",
-      "Cloud-native systems and Kubernetes-heavy environments.",
-      "Systems design, reliability, and operational tooling work."
-    ]
-  },
-  "journey": {
-    "eyebrow": "Journey / systems shipped in production",
-    "headline": "From backend delivery to platform ownership across storage, networking, and service mesh systems.",
-    "summary": "Across Nokia, Infoblox, and HashiCorp, the throughline is consistent: simplify complex systems, remove operational friction, and keep reliability visible.",
-    "profileTitle": "What shows up across the roles",
-    "profileSummary": "The work consistently sits between product capability and operational durability, where systems need to be both useful and easy to run.",
-    "profileList": [
-      "Turn platform complexity into clearer product and operations flows.",
-      "Design for operability: debuggability, safer rollout paths, and less manual toil.",
-      "Work comfortably across APIs, controllers, networking, storage, and incidents."
-    ]
-  },
-  "stack": {
-    "eyebrow": "Stack / tools and systems",
-    "headline": "A stack shaped by distributed systems, platform automation, and infrastructure-heavy product work.",
-    "summary": "The strongest pattern in the toolkit is not any single vendor. It is building reliable workflows around Go, Kubernetes, cloud primitives, networking, and automation.",
-    "optimizeTitle": "What I optimize for",
-    "optimizeList": [
-      "Reduce manual platform friction with clearer abstractions and automation.",
-      "Improve reliability under scale, especially around orchestration and traffic flows.",
-      "Keep systems operable with strong debugging and rollout ergonomics."
-    ]
-  },
-  "footer": {
-    "heading": "Ready to talk backend systems, platform engineering, or distributed infrastructure.",
-    "summary": "Based in Bengaluru, India. Email is the fastest route."
+    "summary": "Start with email for roles, backend and platform discussions, or collaboration."
   }
 }
