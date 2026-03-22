@@ -37,6 +37,9 @@
   // --- Scrollspy ---
   initScrollspy();
 
+  // --- Cursor glow ---
+  initCursorGlow();
+
   // --- Copy email buttons ---
   attachCopyButtons(data.meta.email);
 })();
@@ -133,6 +136,20 @@ function attachCopyButtons(email) {
         setTimeout(() => { btn.textContent = orig; }, 2000);
       } catch { /* silent */ }
     });
+  });
+}
+
+/* ============================================================
+   CURSOR GLOW
+   ============================================================ */
+
+function initCursorGlow() {
+  // Skip on touch-only devices
+  if (window.matchMedia('(hover: none)').matches) return;
+
+  document.addEventListener('mousemove', e => {
+    document.documentElement.style.setProperty('--cursor-x', `${e.clientX}px`);
+    document.documentElement.style.setProperty('--cursor-y', `${e.clientY}px`);
   });
 }
 
