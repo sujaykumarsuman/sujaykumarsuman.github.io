@@ -237,7 +237,7 @@ function renderFooter(data) {
       </p>
       <p class="site-footer__text" style="margin-top:0.25rem">
         <span style="color:var(--color-text-faint)">
-          Built with vanilla HTML, CSS &amp; JS &mdash; no frameworks, no build step.
+          Built with vanilla HTML, CSS &amp; JS &mdash; no frameworks, no build step. Assisted by <a href="https://claude.ai/claude-code" target="_blank" rel="noopener noreferrer">Claude Code</a>.
         </span>
       </p>
     </footer>
