@@ -1,30 +1,10 @@
-// Root app — composes everything.
-
-const { useTweaks, TweaksPanel, TweakSection, TweakRadio, TweakColor } = window;
-
-const PORTFOLIO_TWEAKS_DEFAULTS = /*EDITMODE-BEGIN*/{
-  "theme": "light",
-  "accent": "#C96442"
-}/*EDITMODE-END*/;
+// Root app — composes the sections and mounts to #root.
 
 function App() {
-  const [tweaks, setTweak] = useTweaks(PORTFOLIO_TWEAKS_DEFAULTS);
-
   React.useEffect(() => {
     const stored = (() => { try { return localStorage.getItem('theme'); } catch (e) { return null; } })();
-    document.documentElement.dataset.theme = stored || tweaks.theme || 'light';
+    if (stored) document.documentElement.dataset.theme = stored;
   }, []);
-
-  React.useEffect(() => {
-    if (tweaks.theme) {
-      document.documentElement.dataset.theme = tweaks.theme;
-      try { localStorage.setItem('theme', tweaks.theme); } catch (e) {}
-    }
-  }, [tweaks.theme]);
-
-  React.useEffect(() => {
-    if (tweaks.accent) document.documentElement.style.setProperty('--accent', tweaks.accent);
-  }, [tweaks.accent]);
 
   return (
     <>
@@ -39,21 +19,6 @@ function App() {
         <window.Resume />
         <window.Contact />
       </main>
-      <TweaksPanel title="Tweaks">
-        <TweakSection title="Theme">
-          <TweakRadio
-            label="Mode"
-            value={tweaks.theme}
-            onChange={v => setTweak('theme', v)}
-            options={[{ value: 'light', label: 'Light' }, { value: 'dark', label: 'Dark' }]}
-          />
-          <TweakColor
-            label="Accent"
-            value={tweaks.accent}
-            onChange={v => setTweak('accent', v)}
-          />
-        </TweakSection>
-      </TweaksPanel>
     </>
   );
 }
