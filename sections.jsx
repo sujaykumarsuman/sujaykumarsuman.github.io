@@ -537,8 +537,8 @@ function NavBar() {
   }, []);
 
   const toggleTheme = () => {
-    const cur = document.documentElement.dataset.theme || 'light';
-    const next = cur === 'light' ? 'dark' : 'light';
+    const cur = document.documentElement.dataset.theme || 'dark';
+    const next = cur === 'dark' ? 'light' : 'dark';
     document.documentElement.dataset.theme = next;
     try { localStorage.setItem('theme', next); } catch (e) {}
   };
