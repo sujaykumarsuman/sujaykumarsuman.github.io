@@ -20,7 +20,7 @@ function Hero() {
             <span className="meta-item"><span className="meta-label">Loc</span> {data.meta.location}</span>
           </div>
           <div className="hero-cta">
-            <a className="btn btn-primary" href="#projects">See projects <span className="btn-arrow">→</span></a>
+            <a className="btn btn-primary" href="#experience">View experience <span className="btn-arrow">→</span></a>
             <a className="btn btn-ghost" href={`mailto:${data.meta.email}`}>Get in touch</a>
           </div>
         </div>
