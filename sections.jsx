@@ -1,55 +1,53 @@
 // Section components for portfolio.
+// Every visible string is sourced from data.json (window.PORTFOLIO_DATA),
+// loaded by app.jsx before mount.
 
 const D = () => window.PORTFOLIO_DATA;
 
 // ---------- HERO ----------
 function Hero() {
   const data = D();
+  const meta = data.meta;
+  const hero = data.hero;
+  const ctaHref = (cta) => cta.action === 'email' ? `mailto:${meta.email}` : cta.href;
   return (
     <section id="hero" className="section hero" data-section="hero">
       <div className="hero-grid">
         <div className="hero-left">
           <h1 className="display-xl">
-            <span className="display-line">{data.meta.name.split(' ')[0]}</span>
-            <span className="display-line italic">{data.meta.name.split(' ').slice(1).join(' ')}.</span>
+            <span className="display-line">{meta.firstName}</span>
+            <span className="display-line italic">{meta.lastName}.</span>
           </h1>
-          <p className="lead">{data.meta.tagline}</p>
+          <p className="lead">{meta.tagline}</p>
           <div className="hero-meta">
-            <span className="meta-item"><span className="meta-label">Role</span> {data.meta.role}</span>
+            <span className="meta-item"><span className="meta-label">{hero.metaLabels.role}</span> {meta.role}</span>
             <span className="meta-divider" />
-            <span className="meta-item"><span className="meta-label">Loc</span> {data.meta.location}</span>
+            <span className="meta-item"><span className="meta-label">{hero.metaLabels.location}</span> {meta.location}</span>
           </div>
           <div className="hero-cta">
-            <a className="btn btn-primary" href="#experience">View experience <span className="btn-arrow">→</span></a>
-            <a className="btn btn-ghost" href={`mailto:${data.meta.email}`}>Get in touch</a>
+            {hero.ctas.map((cta, i) => (
+              <a
+                key={i}
+                className={`btn ${cta.style === 'primary' ? 'btn-primary' : 'btn-ghost'}`}
+                href={ctaHref(cta)}
+              >
+                {cta.label}{cta.arrow && <> <span className="btn-arrow">→</span></>}
+              </a>
+            ))}
           </div>
         </div>
         <div className="hero-right">
           <div className="hero-card">
             <div className="hero-card-header">
               <span className="card-dot" /><span className="card-dot dot-2" /><span className="card-dot dot-3" />
-              <span className="card-title">~/sujay</span>
+              <span className="card-title">{hero.terminal.title}</span>
             </div>
             <div className="hero-card-body">
-              <pre className="terminal-text">
-{`> whoami
-${data.meta.handle}
-
-> stack
-go · kubernetes · consul
-service mesh · raft · CRDs
-
-> recently
-shipped enterprise reliability
-to HCP & self-managed Consul
-
-> currently
-building careerdock & verdox_`}
-              </pre>
+              <pre className="terminal-text">{hero.terminal.lines.join('\n')}</pre>
             </div>
           </div>
           <div className="hero-stats">
-            {data.stats.map((s, i) => (
+            {hero.stats.map((s, i) => (
               <div key={i} className="stat">
                 <div className="stat-value">{s.value}</div>
                 <div className="stat-label">{s.label}</div>
@@ -65,21 +63,21 @@ building careerdock & verdox_`}
 // ---------- ABOUT ----------
 function About() {
   const data = D();
+  const about = data.about;
   return (
     <section id="about" className="section about" data-section="about">
-      <SectionHeader index="01" title="About" subtitle="A short version" />
+      <SectionHeader {...about.header} />
       <div className="about-grid">
         <div className="about-bio">
-          {data.about.map((p, i) => <p key={i} className="bio-para">{p}</p>)}
+          {about.paragraphs.map((p, i) => <p key={i} className="bio-para">{p}</p>)}
         </div>
         <aside className="about-side">
           <div className="side-card">
-            <h4 className="side-title">At a glance</h4>
+            <h4 className="side-title">{about.atGlance.title}</h4>
             <ul className="side-list">
-              <li><span>Years shipping</span><b>~5</b></li>
-              <li><span>Primary stack</span><b>Go · K8s</b></li>
-              <li><span>Cares about</span><b>operability</b></li>
-              <li><span>Off-hours</span><b>side projects</b></li>
+              {about.atGlance.items.map((item, i) => (
+                <li key={i}><span>{item.label}</span><b>{item.value}</b></li>
+              ))}
             </ul>
           </div>
         </aside>
@@ -91,13 +89,14 @@ function About() {
 // ---------- SKILLS ----------
 function Skills() {
   const data = D();
+  const skills = data.skills;
   return (
     <section id="skills" className="section skills" data-section="skills">
-      <SectionHeader index="02" title="Stack" subtitle="What I reach for" />
+      <SectionHeader {...skills.header} />
       <div className="skills-grid">
-        {data.skills.map((cat, i) => (
+        {skills.groups.map((cat, i) => (
           <div key={i} className="skill-card" style={{ animationDelay: `${i * 60}ms` }}>
-            <div className="skill-num">0{i + 1}</div>
+            <div className="skill-num">{String(i + 1).padStart(2, '0')}</div>
             <h4 className="skill-name">{cat.name}</h4>
             <div className="skill-chips">
               {cat.items.map((item, j) => <span key={j} className="chip">{item}</span>)}
@@ -112,14 +111,14 @@ function Skills() {
 // ---------- EXPERIENCE ----------
 function Experience() {
   const data = D();
-  // Default-open the most recent non-upcoming role (HashiCorp).
-  const firstNonUpcoming = data.experience.findIndex(j => !j.upcoming);
+  const experience = data.experience;
+  const firstNonUpcoming = experience.items.findIndex(j => !j.upcoming);
   const [open, setOpen] = React.useState(firstNonUpcoming >= 0 ? firstNonUpcoming : 0);
   return (
     <section id="experience" className="section experience" data-section="experience">
-      <SectionHeader index="03" title="Experience" subtitle="The professional record" />
+      <SectionHeader {...experience.header} />
       <div className="exp-list">
-        {data.experience.map((job, i) => {
+        {experience.items.map((job, i) => {
           const isOpen = open === i;
           return (
             <article key={i} className={`exp-item ${isOpen ? 'open' : ''} ${job.upcoming ? 'upcoming' : ''}`}>
@@ -127,7 +126,7 @@ function Experience() {
                 <div className="exp-head-l">
                   <div className="exp-co">
                     {job.company}
-                    {job.upcoming && <span className="exp-badge">Upcoming</span>}
+                    {job.upcoming && <span className="exp-badge">{experience.upcomingBadge}</span>}
                   </div>
                   <div className="exp-role">{job.role}</div>
                 </div>
@@ -138,14 +137,16 @@ function Experience() {
               </button>
               <div className={`exp-body ${isOpen ? 'open' : ''}`}>
                 <p className="exp-summary">{job.summary}</p>
-                {job.highlights.length > 0 && (
+                {job.highlights && job.highlights.length > 0 && (
                   <ul className="exp-highlights">
                     {job.highlights.map((h, j) => <li key={j}>{h}</li>)}
                   </ul>
                 )}
-                <div className="exp-tech">
-                  {job.tech.map((t, j) => <span key={j} className="chip chip-sm">{t}</span>)}
-                </div>
+                {job.tech && job.tech.length > 0 && (
+                  <div className="exp-tech">
+                    {job.tech.map((t, j) => <span key={j} className="chip chip-sm">{t}</span>)}
+                  </div>
+                )}
               </div>
             </article>
           );
@@ -158,17 +159,26 @@ function Experience() {
 // ---------- PROJECTS ----------
 function Projects() {
   const data = D();
+  const projects = data.projects;
   return (
     <section id="projects" className="section projects" data-section="projects">
-      <SectionHeader index="04" title="Projects" subtitle="Things I'm building" />
+      <SectionHeader {...projects.header} />
       <div className="proj-grid">
-        {data.projects.map((p, i) => <ProjectCard key={p.id} project={p} index={i} />)}
+        {projects.items.map((p, i) => (
+          <ProjectCard
+            key={p.id}
+            project={p}
+            index={i}
+            claudeBadge={projects.claudeBadge}
+            linkLabels={projects.linkLabels}
+          />
+        ))}
       </div>
     </section>
   );
 }
 
-function ProjectCard({ project, index }) {
+function ProjectCard({ project, index, claudeBadge, linkLabels }) {
   return (
     <article className={`proj-card featured accent-${project.accent}`}>
       <div className="proj-text">
@@ -178,16 +188,16 @@ function ProjectCard({ project, index }) {
           </span>
           <span className="proj-year">{project.year}</span>
           {project.builtWithClaude && (
-            <span className="claude-badge" title="Built with Claude Code">
+            <span className="claude-badge" title={claudeBadge}>
               <span className="claude-spark">✦</span>
-              Built with Claude Code
+              {claudeBadge}
             </span>
           )}
         </div>
         <h3 className="proj-name">{project.name}</h3>
         <p className="proj-tagline">{project.tagline}</p>
         <p className="proj-desc">{project.description}</p>
-        {project.features.length > 0 && (
+        {project.features && project.features.length > 0 && (
           <ul className="proj-features">
             {project.features.map((f, i) => (
               <li key={i}><span className="feat-bullet" />{f}</li>
@@ -207,57 +217,58 @@ function ProjectCard({ project, index }) {
             )}
           </div>
         )}
-        <div className="proj-tech">
-          {project.tech.map((t, i) => <span key={i} className="chip chip-sm">{t}</span>)}
-        </div>
+        {project.tech && project.tech.length > 0 && (
+          <div className="proj-tech">
+            {project.tech.map((t, i) => <span key={i} className="chip chip-sm">{t}</span>)}
+          </div>
+        )}
         <div className="proj-actions">
-          {project.repo && <a href={project.repo} className="proj-link" target="_blank" rel="noreferrer">Source <span>→</span></a>}
-          {project.live && <a href={project.live} className="proj-link" target="_blank" rel="noreferrer">Live <span>→</span></a>}
+          {project.repo && <a href={project.repo} className="proj-link" target="_blank" rel="noreferrer">{linkLabels.source} <span>→</span></a>}
+          {project.live && <a href={project.live} className="proj-link" target="_blank" rel="noreferrer">{linkLabels.live} <span>→</span></a>}
         </div>
       </div>
       <div className="proj-screenshot">
-        {project.mockType === 'careerdock' && <CareerDockMock />}
-        {project.mockType === 'verdox' && <VerdoxMock />}
+        <ProjectMock mock={project.mock} />
       </div>
     </article>
   );
 }
 
-// CareerDock product mock
-function CareerDockMock() {
+function ProjectMock({ mock }) {
+  if (!mock) return null;
+  if (mock.type === 'careerdock') return <CareerDockMock mock={mock} />;
+  if (mock.type === 'verdox') return <VerdoxMock mock={mock} />;
+  return null;
+}
+
+function CareerDockMock({ mock }) {
   return (
     <div className="cd-mock">
       <div className="cd-chrome">
         <span className="cd-dot" /><span className="cd-dot" /><span className="cd-dot" />
-        <div className="cd-url">careerdock.in / dashboard</div>
+        <div className="cd-url">{mock.url}</div>
       </div>
       <div className="cd-body">
         <div className="cd-side">
-          <div className="cd-logo">CD</div>
-          <div className="cd-nav-item active">Companies</div>
-          <div className="cd-nav-item">Tracker</div>
-          <div className="cd-nav-item">Resume</div>
-          <div className="cd-nav-item">ATS</div>
+          <div className="cd-logo">{mock.logo}</div>
+          {mock.navItems.map((label, i) => (
+            <div key={i} className={`cd-nav-item ${label === mock.activeNav ? 'active' : ''}`}>{label}</div>
+          ))}
         </div>
         <div className="cd-main">
           <div className="cd-search">
             <span className="cd-search-icon">⌕</span>
-            <span className="cd-search-text">Filter 200+ companies</span>
+            <span className="cd-search-text">{mock.searchPlaceholder}</span>
           </div>
           <div className="cd-rows">
-            {[
-              { n: 'Razorpay', s: 'Hiring', t: 'Go · React', m: '92' },
-              { n: 'Zerodha', s: 'Hiring', t: 'Python', m: '87' },
-              { n: 'CRED', s: 'Open', t: 'Kotlin · Go', m: '81' },
-              { n: 'PhonePe', s: 'Hiring', t: 'Java · Go', m: '79' },
-            ].map((r, i) => (
+            {mock.rows.map((r, i) => (
               <div key={i} className="cd-row" style={{ animationDelay: `${i * 80}ms` }}>
-                <div className="cd-co">{r.n}</div>
-                <div className="cd-tag">{r.s}</div>
-                <div className="cd-tech">{r.t}</div>
+                <div className="cd-co">{r.name}</div>
+                <div className="cd-tag">{r.status}</div>
+                <div className="cd-tech">{r.tech}</div>
                 <div className="cd-score">
-                  <div className="cd-bar"><div className="cd-bar-fill" style={{ width: `${r.m}%` }} /></div>
-                  <span>{r.m}</span>
+                  <div className="cd-bar"><div className="cd-bar-fill" style={{ width: `${r.score}%` }} /></div>
+                  <span>{r.score}</span>
                 </div>
               </div>
             ))}
@@ -268,43 +279,36 @@ function CareerDockMock() {
   );
 }
 
-// Verdox product mock — test orchestration dashboard
-function VerdoxMock() {
+function VerdoxMock({ mock }) {
   return (
     <div className="cd-mock vd-mock">
       <div className="cd-chrome">
         <span className="cd-dot" /><span className="cd-dot" /><span className="cd-dot" />
-        <div className="cd-url">verdox.local / runs</div>
+        <div className="cd-url">{mock.url}</div>
       </div>
       <div className="cd-body">
         <div className="cd-side">
-          <div className="cd-logo vd-logo">VX</div>
-          <div className="cd-nav-item">Repos</div>
-          <div className="cd-nav-item">Suites</div>
-          <div className="cd-nav-item active">Runs</div>
-          <div className="cd-nav-item">Teams</div>
+          <div className="cd-logo vd-logo">{mock.logo}</div>
+          {mock.navItems.map((label, i) => (
+            <div key={i} className={`cd-nav-item ${label === mock.activeNav ? 'active' : ''}`}>{label}</div>
+          ))}
         </div>
         <div className="cd-main">
           <div className="vd-header">
-            <div className="vd-title">Test Runs <span className="vd-count">14 active</span></div>
-            <div className="vd-live"><span className="vd-pulse" /> live · SSE</div>
+            <div className="vd-title">{mock.title} <span className="vd-count">{mock.count}</span></div>
+            <div className="vd-live"><span className="vd-pulse" /> {mock.live}</div>
           </div>
           <div className="cd-rows">
-            {[
-              { repo: 'auth-svc', branch: 'main', s: 'pass', d: '2m 14s', g: '12/12' },
-              { repo: 'billing-api', branch: 'feat/retry', s: 'run', d: '0m 42s', g: '4/9' },
-              { repo: 'gateway', branch: 'main', s: 'pass', d: '1m 51s', g: '8/8' },
-              { repo: 'platform-cli', branch: 'fix/race', s: 'fail', d: '3m 02s', g: '7/9' },
-            ].map((r, i) => (
+            {mock.rows.map((r, i) => (
               <div key={i} className="cd-row vd-row" style={{ animationDelay: `${i * 80}ms` }}>
                 <div className="cd-co vd-repo">{r.repo}</div>
                 <div className="vd-branch">{r.branch}</div>
-                <div className={`vd-status vd-${r.s}`}>
+                <div className={`vd-status vd-${r.status}`}>
                   <span className="vd-status-dot" />
-                  {r.s === 'pass' ? 'Passed' : r.s === 'run' ? 'Running' : 'Failed'}
+                  {mock.statusLabels[r.status]}
                 </div>
-                <div className="vd-groups">{r.g}</div>
-                <div className="vd-dur">{r.d}</div>
+                <div className="vd-groups">{r.groups}</div>
+                <div className="vd-dur">{r.duration}</div>
               </div>
             ))}
           </div>
@@ -317,14 +321,15 @@ function VerdoxMock() {
 // ---------- RECOMMENDATIONS ----------
 function Recommendations() {
   const data = D();
+  const recs = data.recommendations;
   const [active, setActive] = React.useState(0);
-  const total = data.recommendations.length;
+  const total = recs.items.length;
   return (
     <section id="recommendations" className="section recommendations" data-section="recommendations">
-      <SectionHeader index="05" title="Recommendations" subtitle="What people I've worked with say" />
+      <SectionHeader {...recs.header} />
       <div className="recs-stage">
         <div className="recs-track">
-          {data.recommendations.map((r, i) => (
+          {recs.items.map((r, i) => (
             <article
               key={i}
               className={`rec-slide ${i === active ? 'active' : ''}`}
@@ -345,7 +350,7 @@ function Recommendations() {
                   <span className="rec-date">· {r.date}</span>
                   {r.linkedin && (
                     <a className="rec-linkedin" href={r.linkedin} target="_blank" rel="noreferrer" aria-label={`${r.name} on LinkedIn`}>
-                      <span>in</span>
+                      <span>{recs.linkedinIconLabel}</span>
                     </a>
                   )}
                 </div>
@@ -357,15 +362,15 @@ function Recommendations() {
           <button
             className="recs-arrow"
             onClick={() => setActive((active - 1 + total) % total)}
-            aria-label="Previous"
+            aria-label={recs.navAriaLabels.previous}
           >←</button>
           <div className="recs-dots">
-            {data.recommendations.map((r, i) => (
+            {recs.items.map((r, i) => (
               <button
                 key={i}
                 className={`recs-dot ${i === active ? 'active' : ''}`}
                 onClick={() => setActive(i)}
-                aria-label={`Recommendation ${i + 1}`}
+                aria-label={`${recs.header.title} ${i + 1}`}
               >
                 <span className="recs-dot-name">{r.name.split(' ')[0]}</span>
               </button>
@@ -374,13 +379,13 @@ function Recommendations() {
           <button
             className="recs-arrow"
             onClick={() => setActive((active + 1) % total)}
-            aria-label="Next"
+            aria-label={recs.navAriaLabels.next}
           >→</button>
         </div>
       </div>
       <div className="recs-foot">
         <a href={data.meta.recommendationsUrl} target="_blank" rel="noreferrer" className="recs-link">
-          See all on LinkedIn <span>→</span>
+          {recs.seeAllLabel} <span>→</span>
         </a>
       </div>
     </section>
@@ -390,11 +395,12 @@ function Recommendations() {
 // ---------- WRITING ----------
 function Writing() {
   const data = D();
+  const writing = data.writing;
   return (
     <section id="writing" className="section writing" data-section="writing">
-      <SectionHeader index="06" title="Writing" subtitle="Notes from the trenches" />
+      <SectionHeader {...writing.header} />
       <div className="writing-list">
-        {data.writing.map((w, i) => (
+        {writing.items.map((w, i) => (
           <a key={i} href={w.href} className="writing-item" target="_blank" rel="noreferrer">
             <div className="writing-date">{w.date}</div>
             <div className="writing-body">
@@ -412,20 +418,21 @@ function Writing() {
 // ---------- RESUME ----------
 function Resume() {
   const data = D();
+  const resume = data.resume;
   return (
     <section id="resume" className="section resume" data-section="resume">
       <div className="resume-card">
         <div className="resume-l">
-          <div className="resume-eyebrow">Resume</div>
-          <h3 className="resume-title">The full record, on a page.</h3>
-          <p className="resume-sub">PDF · last updated recently · prints cleanly.</p>
+          <div className="resume-eyebrow">{resume.eyebrow}</div>
+          <h3 className="resume-title">{resume.title}</h3>
+          <p className="resume-sub">{resume.subtitle}</p>
         </div>
         <div className="resume-r">
           <a className="btn btn-primary" href={data.meta.resumeUrl} target="_blank" rel="noreferrer">
-            View resume <span className="btn-arrow">↗</span>
+            {resume.primaryCta} <span className="btn-arrow">↗</span>
           </a>
           <a className="btn btn-ghost" href={data.meta.githubUrl} target="_blank" rel="noreferrer">
-            GitHub profile
+            {resume.ghostCta}
           </a>
         </div>
       </div>
@@ -436,29 +443,29 @@ function Resume() {
 // ---------- CONTACT ----------
 function Contact() {
   const data = D();
+  const contact = data.contact;
+  const meta = data.meta;
+  const footer = data.footer;
   const [copied, setCopied] = React.useState(false);
   function copyEmail(e) {
     e.preventDefault();
-    navigator.clipboard.writeText(data.meta.email);
+    navigator.clipboard.writeText(meta.email);
     setCopied(true);
     setTimeout(() => setCopied(false), 1800);
   }
   return (
     <section id="contact" className="section contact" data-section="contact">
-      <SectionHeader index="07" title="Connect" subtitle="The end of the page, the start of a conversation" />
+      <SectionHeader {...contact.header} />
       <div className="contact-card">
-        <h3 className="contact-h">Let's talk.</h3>
-        <p className="contact-p">
-          Open to roles, backend & platform discussions, or collaboration on something interesting.
-          Email is fastest.
-        </p>
+        <h3 className="contact-h">{contact.headline}</h3>
+        <p className="contact-p">{contact.body}</p>
         <div className="contact-email-row">
-          <span className="contact-email">{data.meta.email}</span>
+          <span className="contact-email">{meta.email}</span>
           <a
-            href={`mailto:${data.meta.email}`}
+            href={`mailto:${meta.email}`}
             className="contact-icon-btn"
-            aria-label="Send email"
-            title="Send email"
+            aria-label={contact.labels.sendEmail}
+            title={contact.labels.sendEmail}
           >
             <svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <rect x="2.5" y="4.5" width="15" height="11" rx="1.5" />
@@ -468,8 +475,8 @@ function Contact() {
           <button
             className="contact-icon-btn"
             onClick={copyEmail}
-            aria-label={copied ? 'Email copied' : 'Copy email'}
-            title={copied ? 'Copied!' : 'Copy email'}
+            aria-label={copied ? contact.labels.emailCopied : contact.labels.copyEmail}
+            title={copied ? contact.labels.copied : contact.labels.copyEmail}
           >
             {copied ? (
               <svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -484,16 +491,17 @@ function Contact() {
           </button>
         </div>
         <div className="contact-links">
-          <a href={data.meta.linkedinUrl} target="_blank" rel="noreferrer">LinkedIn</a>
-          <span>·</span>
-          <a href={data.meta.githubUrl} target="_blank" rel="noreferrer">GitHub</a>
-          <span>·</span>
-          <a href={data.meta.leetcodeUrl} target="_blank" rel="noreferrer">LeetCode</a>
+          {contact.socials.map((s, i) => (
+            <React.Fragment key={i}>
+              {i > 0 && <span>·</span>}
+              <a href={meta[s.metaKey]} target="_blank" rel="noreferrer">{s.label}</a>
+            </React.Fragment>
+          ))}
         </div>
       </div>
       <footer className="footer">
-        <span>© {new Date().getFullYear()} {data.meta.name}</span>
-        <span>Designed and built with care.</span>
+        <span>{footer.leftPrefix} {new Date().getFullYear()} {meta.name}</span>
+        <span>{footer.rightText}</span>
       </footer>
     </section>
   );
@@ -516,16 +524,17 @@ function SectionHeader({ index, title, subtitle }) {
 // ---------- NAVBAR ----------
 function NavBar() {
   const data = D();
+  const nav = data.nav;
   const [scrolled, setScrolled] = React.useState(false);
   const [active, setActive] = React.useState('hero');
 
   React.useEffect(() => {
+    const sectionIds = ['hero', ...nav.links.map(l => l.id)];
     const onScroll = () => {
       setScrolled(window.scrollY > 24);
-      const sections = ['hero', 'about', 'skills', 'experience', 'projects', 'recommendations', 'contact'];
       const y = window.scrollY + 120;
       let current = 'hero';
-      for (const id of sections) {
+      for (const id of sectionIds) {
         const el = document.getElementById(id);
         if (el && el.offsetTop <= y) current = id;
       }
@@ -543,15 +552,6 @@ function NavBar() {
     try { localStorage.setItem('theme', next); } catch (e) {}
   };
 
-  const links = [
-    { id: 'about', label: 'About' },
-    { id: 'skills', label: 'Stack' },
-    { id: 'experience', label: 'Work' },
-    { id: 'projects', label: 'Projects' },
-    { id: 'recommendations', label: 'Praise' },
-    { id: 'contact', label: 'Contact' },
-  ];
-
   return (
     <nav className={`nav ${scrolled ? 'scrolled' : ''}`}>
       <a href="#hero" className="nav-brand">
@@ -561,14 +561,14 @@ function NavBar() {
           <span className="brand-dot" />
           <span className="brand-dot" />
         </span>
-        <span>{data.meta.name.split(' ')[0].toLowerCase()}</span>
+        <span>{data.meta.brand}</span>
       </a>
       <div className="nav-links">
-        {links.map(l => (
+        {nav.links.map(l => (
           <a key={l.id} href={`#${l.id}`} className={active === l.id ? 'active' : ''}>{l.label}</a>
         ))}
       </div>
-      <button className="theme-toggle" onClick={toggleTheme} aria-label="Toggle theme">
+      <button className="theme-toggle" onClick={toggleTheme} aria-label={nav.themeToggleAriaLabel}>
         <span className="theme-icon-light toggle-icon-light">☼</span>
         <span className="theme-icon-dark toggle-icon-dark">☾</span>
       </button>
