@@ -6,7 +6,7 @@
     "handle": "sujaykumarsuman",
     "brand": "sujay",
     "role": "Software Engineer",
-    "location": "India",
+    "location": "Bangalore, Karnataka, India",
     "tagline": "Building Go services, Kubernetes-native controllers, and platforms that stay clear under load.",
     "email": "sujaykumar.dev@gmail.com",
     "resumeUrl": "/assets/resume/sujay_resume_v4.pdf",
@@ -45,14 +45,14 @@
         "",
         "> stack",
         "go · kubernetes · consul",
-        "service mesh · raft · CRDs",
+        "distributed systems · AWS · CRDs",
         "",
         "> recently",
-        "shipped enterprise reliability",
-        "to HCP & self-managed Consul",
+        "shipped enterprise features",
+        "to hashicorp/consul",
         "",
         "> currently",
-        "building careerdock & verdox_"
+        "building careerdock, verdox & more_"
       ]
     },
     "stats": [
@@ -87,9 +87,9 @@
       { "name": "Programming", "items": ["Go", "Python", "Shell", "SQL", "C++"] },
       { "name": "Core Knowledge", "items": ["Microservices", "Distributed Systems", "System Design", "Algorithms", "Data Structures"] },
       { "name": "Cloud & Infra", "items": ["Kubernetes", "AWS", "Docker", "Helm", "Linux", "Terraform", "GitHub Actions", "Jenkins", "FluxCD", "KubeVela", "Crossplane"] },
-      { "name": "Data & Messaging", "items": ["PostgreSQL", "Redis", "DynamoDB", "Kafka"] },
+      { "name": "Data & Messaging", "items": ["PostgreSQL", "Redis", "Kafka"] },
       { "name": "Networking & Storage", "items": ["Consul", "IPSec", "VxLAN", "OVS", "S3", "MinIO"] },
-      { "name": "AI & Tooling", "items": ["Claude Code", "Claude API", "OpenAI API", "RAG", "Prompt Engineering", "AI-assisted dev workflows"] }
+      { "name": "AI & Tooling", "items": ["Claude Code", "Claude API/OpenAI API Integration", "Prompt Engineering", "AI-assisted dev workflows"] }
     ]
   },
 
@@ -98,7 +98,7 @@
     "upcomingBadge": "Upcoming",
     "items": [
       {
-        "company": "HashiCorp",
+        "company": "HashiCorp, an IBM Company",
         "role": "Engineer 2",
         "period": "Feb 2025 — Mar 2026",
         "summary": "Consul: enterprise reliability, traffic routing, license reporting, customer ops.",
