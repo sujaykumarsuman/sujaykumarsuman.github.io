@@ -403,11 +403,14 @@ a { color: inherit; text-decoration: none; }
 .hero-stats {
   margin-top: 20px;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  /* Each card is at least 110px; pack as many as fit per row. With 4 stats this
+     yields 4 across on desktop, 2x2 on mobile. Adding a 5th stat wraps to a new
+     row automatically. */
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
   gap: 14px;
 }
 @media (max-width: 720px) {
-  .hero-stats { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .hero-stats { gap: 10px; }
 }
 .stat {
   background: var(--paper);
