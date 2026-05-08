@@ -113,7 +113,7 @@
       },
       {
         "company": "Infoblox",
-        "role": "Software Engineer 2",
+        "role": "Software Engineer 1, Software Engineer 2",
         "period": "Jul 2022 — Jan 2025",
         "summary": "Kubernetes-native platform services, GitOps workflows, networking automation for SaaS DDI.",
         "tech": ["Go", "Kubernetes", "AWS", "FluxCD", "Crossplane", "KubeVela", "IPSec", "VxLAN", "OVS"],
