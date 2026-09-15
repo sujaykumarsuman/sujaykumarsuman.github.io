@@ -1,0 +1,22 @@
+name: deploy
+
+# Build + push the projects-hub image to GHCR when the page changes. Flux
+# image-automation deploys it to k3s (sujaykumarsuman/infra). Build tags are
+# 0.1.<run_number>; the ImagePolicy (>=0.1.0) picks the newest.
+on:
+  push:
+    branches: [main]
+    paths:
+      - projects/index.html
+      - projects/Dockerfile
+      - .github/workflows/deploy.yml
+  workflow_dispatch: {}
+
+jobs:
+  image:
+    uses: sujaykumarsuman/.github/.github/workflows/build-push.yml@main
+    with:
+      image: ghcr.io/sujaykumarsuman/projects-hub
+      context: projects
+      dockerfile: projects/Dockerfile
+      major-minor: "0.1"
