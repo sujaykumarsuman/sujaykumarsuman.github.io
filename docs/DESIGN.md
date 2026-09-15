@@ -1,152 +1,121 @@
 # Design System — sujaykumar.dev
 
-All design values live in `css/tokens.css` as CSS custom properties. Edit only that file to change global design values.
+The look is a **warm "paper" palette with a terracotta accent** — a calm, editorial,
+Anthropic-adjacent aesthetic rather than a neon developer-dark theme.
+
+All styles live in **one file: `styles.css`** at the repo root (~45KB). There is
+no CSS build step and no separate token/base/component files. Global design
+values are **CSS custom properties** defined on `:root`; edit those to change the
+system, and reference tokens (never raw hex/px) in component rules.
+
+---
+
+## Theming (light + dark)
+
+- Tokens on bare **`:root`** define the **light** palette — this is the CSS base.
+- **`[data-theme="dark"]`** overrides the palette tokens for dark.
+- The **site boots in dark by default.** `index.html` ships
+  `<html … data-theme="dark">` and an inline script (runs before paint, to avoid
+  a flash) sets `document.documentElement.dataset.theme` from
+  `localStorage['theme']`, falling back to `'dark'`.
+- The **NavBar theme toggle** flips `data-theme` between `dark` and `light` and
+  persists the choice to `localStorage['theme']`.
+
+So: the CSS *base* is light, but a first-time visitor sees *dark* until they
+toggle.
 
 ---
 
 ## Color palette
 
-| Token | Value | Usage |
-|-------|-------|-------|
-| `--color-bg` | `#0d1117` | Page background |
-| `--color-surface` | `#161b22` | Card / panel backgrounds |
-| `--color-surface-2` | `#1c2128` | Nested surfaces, hover states |
-| `--color-border` | `#21262d` | Default borders |
-| `--color-border-hover` | `#30363d` | Hovered / active borders |
-| `--color-accent` | `#22d3ee` | Cyan primary accent |
-| `--color-accent-dim` | `#0e7490` | Dimmed accent for left-borders, subtle highlights |
-| `--color-accent-bg` | `rgba(34,211,238,0.06)` | Very faint accent tint for active nav |
-| `--color-text` | `#e6edf3` | Primary body text |
-| `--color-text-muted` | `#7d8590` | Secondary / helper text |
-| `--color-text-faint` | `#484f58` | Labels, list markers, very subtle text |
-| `--color-text-accent` | `#22d3ee` | Accent-colored text spans |
+Values are the actual token definitions in `styles.css`. `sage`, `lavender`, and
+`sand` are shared across themes (not overridden in dark).
+
+| Token | Light (`:root`) | Dark (`[data-theme="dark"]`) | Usage |
+|-------|-----------------|------------------------------|-------|
+| `--bg` | `#F5F0E8` | `#1A1612` | Page background |
+| `--bg-2` | `#EFE8DD` | `#221C17` | Secondary surface |
+| `--bg-3` | `#E8DFCF` | `#2C251E` | Tertiary surface / hover |
+| `--paper` | `#FAF6EE` | `#221C17` | Cards, panels ("paper") |
+| `--ink` | `#1F1A15` | `#F0E6D6` | Primary text |
+| `--ink-2` | `#3D3530` | `#D9CDBA` | Secondary text |
+| `--ink-3` | `#6B5F55` | `#A89B89` | Muted text |
+| `--ink-soft` | `#9A8C7E` | `#756B5E` | Faint text, labels |
+| `--line` | `#D9CFBE` | `#3A2F25` | Borders |
+| `--line-soft` | `#E5DCCB` | `#2C251E` | Subtle borders / dividers |
+| `--accent` | `#C96442` | `#E08363` | **Terracotta** — primary accent |
+| `--accent-soft` | `#E8B5A0` | `#B4654B` | Soft accent tint |
+| `--accent-deep` | `#9C4A2E` | `#F2A688` | Deep accent / emphasis |
+| `--sage` | `#8AA38A` | (same) | Secondary accent |
+| `--lavender` | `#A89AB8` | (same) | Secondary accent |
+| `--sand` | `#D4C198` | (same) | Secondary accent |
+
+There's also a small **sprite palette** (`--sprite-*`) for a decorative
+peach-fox character, and a fixed **grain overlay** (`body::before`, a faint
+radial-dot texture, `multiply` in light / `screen` in dark).
+
+Project cards pick an accent via `accent-<value>` (e.g. `accent-terracotta`,
+`accent-sage`) driven by the `accent` field in `data.json`.
 
 ---
 
 ## Typography
 
-### Fonts
-| Role | Font | Fallback |
-|------|------|---------|
-| Headings, nav, labels, code | `JetBrains Mono` | `Fira Code`, `Cascadia Code`, monospace |
-| Body, descriptions, prose | `Inter` | system-ui, -apple-system, sans-serif |
+Fonts are loaded from **Google Fonts in `index.html`** and exposed as tokens:
 
-### Type scale
-| Token | Value | px equiv |
-|-------|-------|---------|
-| `--text-xs` | `0.6875rem` | 11px |
-| `--text-sm` | `0.8125rem` | 13px |
-| `--text-base` | `0.9375rem` | 15px |
-| `--text-md` | `1rem` | 16px |
-| `--text-lg` | `1.125rem` | 18px |
-| `--text-xl` | `1.375rem` | 22px |
-| `--text-2xl` | `1.75rem` | 28px |
-| `--text-3xl` | `2.25rem` | 36px |
-| `--text-4xl` | `3rem` | 48px |
+| Token | Family | Role |
+|-------|--------|------|
+| `--font-display` | **Fraunces** (fallback Tiempos, Georgia, serif) | Display headings, hero name, section titles |
+| `--font-body` | **Inter** (fallback system-ui, -apple-system) | Body copy, prose |
+| `--font-mono` | **JetBrains Mono** (fallback ui-monospace) | Labels, code, terminal, eyebrows, chips |
+| `--font-hero` | **Caveat** (cursive) | Handwritten accent flourishes |
 
-### Font weights
-- `--weight-normal: 400`
-- `--weight-medium: 500`
-- `--weight-semibold: 600`
-- `--weight-bold: 700`
-
-### Line heights
-- `--leading-tight: 1.2` — headings
-- `--leading-snug: 1.4` — compact lists
-- `--leading-normal: 1.6` — body default
-- `--leading-loose: 1.8` — descriptions, summaries
+Base body is Inter at 16px / line-height 1.55, with `font-feature-settings:
+"ss01","cv11"` and antialiasing. Fraunces is a variable optical-size serif — the
+italic display line in the hero uses it.
 
 ---
 
-## Spacing scale
+## Radii, layout, shadows
 
-All spacing uses `--space-N` tokens. Prefer these over raw values.
-
-| Token | Value |
-|-------|-------|
-| `--space-1` | 4px |
-| `--space-2` | 8px |
-| `--space-3` | 12px |
-| `--space-4` | 16px |
-| `--space-5` | 20px |
-| `--space-6` | 24px |
-| `--space-8` | 32px |
-| `--space-10` | 40px |
-| `--space-12` | 48px |
-| `--space-16` | 64px |
-| `--space-20` | 80px |
-| `--space-24` | 96px |
-
----
-
-## Layout
-
-- `--max-width: 1080px` — max content width
-- `--page-padding-x: clamp(24px, 5vw, 48px)` — responsive horizontal padding
-- `--page-padding-y: 64px` — vertical page padding
-- Use `.container` class for max-width + centered content
-- Use `.section` for consistent vertical section spacing
-
----
-
-## Border radius
+**Border radius**
 
 | Token | Value | Usage |
 |-------|-------|-------|
-| `--radius-sm` | 4px | Tags, small chips, inline elements |
-| `--radius-md` | 8px | Buttons, small cards |
-| `--radius-lg` | 12px | Main cards and panels |
-| `--radius-xl` | 16px | Large featured panels |
+| `--radius-sm` | `8px` | Chips, small elements |
+| `--radius` | `14px` | Default cards, buttons |
+| `--radius-lg` | `22px` | Large featured panels |
+
+**Layout**
+
+- `--max-w: 1180px` — max content width (sections center within this).
+- Nav and page gutters use `max(32px, env(safe-area-inset-*))` for notch safety.
+- `html { scroll-behavior: smooth }`; the fixed nav offsets scroll-spy by ~120px.
+
+**Shadows** — warm-tinted in light, black in dark:
+
+- `--shadow-sm` — subtle lift
+- `--shadow-md` — card hover / raised panels
+- `--shadow-lg` — large featured elements
 
 ---
 
-## Shadows
+## Principles
 
-- `--shadow-sm: 0 1px 3px rgba(0,0,0,0.4)` — subtle lift
-- `--shadow-md: 0 4px 12px rgba(0,0,0,0.5)` — card hover
+1. **Warm paper, not developer-dark.** Backgrounds are warm off-whites (light)
+   and deep warm browns (dark) — never pure `#000`/`#fff` or cool grays.
+2. **Terracotta is the one loud color.** `--accent` carries primary emphasis
+   (buttons, active states, key marks). Use `--sage` / `--lavender` / `--sand`
+   for gentle secondary accents (e.g. per-project card tints).
+3. **Everything from tokens.** Don't write raw hex or px in component rules —
+   reference a custom property so light/dark and global tweaks stay coherent.
+4. **Both themes must hold up.** Any new color or component has to read correctly
+   in light *and* dark. Add dark overrides under `[data-theme="dark"]` when a new
+   token needs different values.
+5. **Serif for identity, sans for reading, mono for signal.** Fraunces headlines,
+   Inter body, JetBrains Mono for anything that should feel like tooling.
+6. **Texture is subtle.** The grain overlay and soft shadows add warmth; avoid
+   heavy gradients or decoration on content.
 
----
-
-## Components
-
-### Nav
-- Sticky, frosted-glass (`backdrop-filter: blur(12px)`) with dark bg at 85% opacity
-- Brand: `SK / sujaykumar.dev` in mono font, accent on the `SK`
-- Links: mono xs, muted by default, accent + faint bg when active
-- Height: 56px
-
-### Buttons
-Three variants — all use mono font, `--text-sm`, medium weight:
-- `.btn--primary` — cyan bg, dark text
-- `.btn--secondary` — surface bg, border
-- `.btn--ghost` — transparent, muted border
-
-### Cards
-- Background: `--color-surface`
-- Border: `--color-border`, transitions to `--color-border-hover` on hover
-- Radius: `--radius-lg`
-- Padding: `--space-6` to `--space-8`
-
-### Eyebrow labels
-- Mono font, `--text-xs`, uppercase, `letter-spacing: 0.08em`, accent color
-- Use `.eyebrow` class
-
-### Tech / skill tags
-- `.tech-tag` — on experience cards (muted text)
-- `.skill-tag` — on skill group items (normal text)
-- Both: mono xs, surface-2 bg, subtle border, radius-sm
-
-### Status dot
-- 6px cyan circle (`--color-accent`)
-- Used in footer next to availability status
-
----
-
-## Design principles
-
-1. **Mono for identity, sans for prose** — Use JetBrains Mono for anything that signals engineering: headings, nav, labels, tags, values. Use Inter for readable body text.
-2. **Borders over shadows** — Cards use border transitions, not box-shadow lifts. Consistent with the terminal/editor aesthetic.
-3. **Accent is sparse** — Cyan appears only on: active nav, eyebrows, stat values, left-border accents, tags. Not on body text or decoration.
-4. **No gradients on content** — Backgrounds are flat. Gradient use is avoided to keep the look clean and fast.
-5. **Whitespace over decoration** — Section spacing is generous. Padding inside cards is consistent. No filler icons or illustrations.
-6. **Everything from tokens** — Never write raw hex values or pixel values in `components.css`. Always reference a token.
+See [`CONTENT.md`](CONTENT.md) for how content maps to these components, and
+[`AGENT.md`](AGENT.md) for the working guide.
