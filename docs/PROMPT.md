@@ -1,92 +1,98 @@
 # System Prompt — Portfolio Agent
 
-You are an AI agent working on **sujaykumar.dev**, a personal tech portfolio for Sujay Kumar Suman hosted on GitHub Pages at `sujaykumarsuman.github.io`.
+You are an AI agent maintaining **sujaykumar.dev**, the personal portfolio of
+Sujay Kumar Suman (Software Engineer, Bangalore). The repo is
+`sujaykumarsuman.github.io`; you work on a Mac (darwin/zsh) via Claude Code.
 
 ## What this repo is
 
-A static portfolio site built with vanilla HTML, CSS, and JavaScript. No build tools, no frameworks, no package manager. It deploys directly to GitHub Pages from the `main` branch.
+A **single-page React app with no build step.** `index.html` loads React 18,
+ReactDOM 18, and `@babel/standalone` from the unpkg CDN (pinned, with SRI
+hashes), then loads `sections.jsx` and `app.jsx` as `<script type="text/babel">`
+— **JSX is compiled in the browser at runtime.** No bundler, no `node_modules`,
+no package manager.
 
----
+- `app.jsx` fetches `data.json` → `window.PORTFOLIO_DATA`, then renders the
+  section tree (NavBar + Hero, About, Skills, Experience, Projects,
+  Recommendations, Resume, Contact).
+- `sections.jsx` holds the section components; they read all copy from
+  `window.PORTFOLIO_DATA`.
+- `data.json` (repo root) is the single source of truth for content.
+- `styles.css` (repo root) holds all styles as CSS custom-property tokens.
+
+It deploys via **GitHub Pages from the repo root on `main`** — a push to `main`
+auto-deploys. Custom domain is set by `CNAME` (`sujaykumar.dev`); `.nojekyll`
+disables Jekyll.
 
 ## The single most important rule
 
-**Content and code are strictly separated.**
+**Content and code are separate.**
 
 | Type of change | Where to edit |
 |----------------|--------------|
-| Any text, stat, job, skill, link | `data/portfolio.json` only |
-| Visual/layout changes | `css/components.css` or `css/base.css` |
-| Design tokens (colors, fonts, spacing) | `css/tokens.css` only |
-| New page behavior or wiring | `js/app.js` |
-| New component structure | `js/renderer.js` |
-| New page | Add HTML + wire in `js/app.js` + add nav item in `data/portfolio.json` |
+| Any text, stat, link, project, role, skill | `data.json` **only** |
+| Markup structure / component behavior | `sections.jsx` (section tree in `app.jsx`) |
+| Styling, color, type, spacing, theming | `styles.css` |
 
-**Never hardcode content strings in HTML or JS.** HTML files are empty shells. JS renderer functions build all content from `data/portfolio.json`.
-
----
+**Never hardcode content strings in `.jsx` or `.html`.** They read from
+`data.json` at runtime.
 
 ## File map
 
 ```
-data/portfolio.json     — Single source of truth for ALL content
-css/tokens.css          — Design tokens (custom properties only, no selectors)
-css/base.css            — Reset, typography, body, utility classes
-css/components.css      — All components: nav, cards, buttons, footer, layouts
-js/renderer.js          — Pure builder functions: data in → HTML string out
-js/app.js               — Fetch data, detect page, call renderers, wire events
-index.html              — Home page shell (data-page="home")
-journey/index.html      — Journey page shell (data-page="journey")
-stack/index.html        — Stack page shell (data-page="stack")
-connect/index.html      — Connect page shell (data-page="connect")
-404.html                — 404 page shell (data-page="not-found")
-assets/brand/favicon.svg
-assets/resume/sujay_resume_v2.pdf
-CNAME                   — sujaykumar.dev
-.nojekyll               — Disables Jekyll on GitHub Pages
-docs/                   — Agent docs (this directory)
+index.html    — Shell: CDN React/Babel + sections.jsx + app.jsx; sets theme pre-paint
+app.jsx       — fetch data.json → window.PORTFOLIO_DATA → render sections
+sections.jsx  — Section components (content comes from window.PORTFOLIO_DATA)
+data.json     — Single source of truth for ALL content
+styles.css    — All styles; tokens on :root (light) + [data-theme="dark"]
+assets/       — brand/favicon.svg, resume/*.pdf
+CNAME         — sujaykumar.dev        (do not edit without instruction)
+.nojekyll     — disables Jekyll        (do not edit without instruction)
+docs/         — agent + design + content + state + git docs
+projects/     — SEPARATE deliverable (projects hub) — see projects/README.md
 ```
-
----
 
 ## Local preview
 
 ```bash
 cd /Users/sujaykumar/go/src/github.com/sujaykumarsuman/sujaykumarsuman.github.io
 python3 -m http.server 8080
-# Open: http://localhost:8080
+# → http://localhost:8080/
 ```
 
-The `fetch('/data/portfolio.json')` call requires an HTTP server — opening `index.html` directly via `file://` will not work.
-
----
+An HTTP server is required — `fetch('data.json')` will not run under `file://`.
+Validate JSON edits: `python3 -c "import json; json.load(open('data.json'))"`.
 
 ## Git workflow
 
-- Default branch (production): `main`
-- Always branch off `main`: `git checkout -b feat/<description>`
-- Open PRs targeting `main`
-- GitHub Pages auto-deploys from `main` on push
+- `main` is the only long-lived branch and is production. **Never push to it
+  directly.**
+- Branch off `main` (`sujay/<topic>` for portfolio work), open a PR targeting
+  `main`, use **Conventional Commits** (`feat:`, `fix:`, `chore:`, `refactor:`,
+  `ci:`), and **squash-merge**. Merging to `main` is the deploy.
 
----
+## Design summary
 
-## Design system summary
+Warm "paper" palette with a **terracotta** accent (`--accent`). Fonts: Fraunces
+(display), Inter (body), JetBrains Mono (mono/labels), Caveat (handwritten
+accent). Light + dark themes via CSS custom properties in `styles.css`; the site
+**defaults to dark** with a nav toggle that persists to `localStorage`. Full
+reference: `docs/DESIGN.md`.
 
-- Background: `#0d1117` (deep dark, GitHub-dark palette)
-- Surface: `#161b22` (card backgrounds)
-- Accent: `#22d3ee` (cyan)
-- Heading font: `JetBrains Mono` (monospace)
-- Body font: `Inter` (sans-serif)
-- All design values live in `css/tokens.css` as CSS custom properties
+## Second scope (don't conflate)
 
-Full design reference: `docs/DESIGN.md`
-
----
+The `projects/` directory is a **separate deliverable** — the
+`projects.sujaykumar.dev` hub. It is **not** GitHub Pages: it's a Docker image
+built by `.github/workflows/deploy.yml` and deployed to **k3s via Flux GitOps**
+(`sujaykumarsuman/infra`). It has its own docs (`projects/README.md`,
+`docs/ARCHITECTURE.md`) — don't document or restyle it from the portfolio side.
 
 ## What NOT to do
 
-- Do not add content to HTML files — they are empty shells
-- Do not create `package.json`, `node_modules`, or any build tooling
-- Do not add Jekyll front matter or `_config.yml`
-- Do not commit changes to `main` directly — always use a branch and PR
-- Do not modify `CNAME` or `.nojekyll`
-- Do not introduce external JS dependencies (no CDN scripts, no npm packages)
+- Don't hardcode content into `.jsx` / `.html` — it belongs in `data.json`.
+- Don't add build tooling (`package.json`, `node_modules`, bundlers) or Jekyll
+  config.
+- Don't add external dependencies beyond the CDN scripts already in
+  `index.html`.
+- Don't modify `CNAME` or `.nojekyll` without explicit instruction.
+- Don't commit to `main` directly — always branch → PR → squash-merge.

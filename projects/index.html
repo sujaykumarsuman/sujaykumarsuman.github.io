@@ -4,41 +4,455 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>projects · sujaykumar.dev</title>
+    <meta
+      name="description"
+      content="Small things I build and self-host on a single-node k3s cluster behind projects.sujaykumar.dev."
+    />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='11' fill='%230b0d10'/%3E%3Cg fill='none' stroke='%2335d0c0' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='7' cy='8' r='2'/%3E%3Ccircle cx='17' cy='8' r='2'/%3E%3Ccircle cx='12' cy='16' r='2'/%3E%3Cpath d='M8.5 9.3 11 14.4M15.5 9.3 13 14.4M9 8h6'/%3E%3C/g%3E%3C/svg%3E" />
     <style>
-      :root { color-scheme: dark; }
+      :root {
+        color-scheme: dark;
+        --bg: #0b0d10;
+        --panel: #12151c;
+        --panel-2: #171b23;
+        --line: #232a35;
+        --line-2: #2d3542;
+        --text: #e6e9ef;
+        --dim: #9aa4b2;
+        --mut: #616b7a;
+        --teal: #35d0c0;
+        --ok: #57d39a;
+        --warn: #f0b429;
+        --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+        --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+      }
+
       * { box-sizing: border-box; }
+
+      html { -webkit-text-size-adjust: 100%; }
+
       body {
-        margin: 0; min-height: 100vh; background: #0b0d12; color: #e6e9ef;
-        font: 16px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-        display: grid; place-items: center; padding: 2rem;
+        margin: 0;
+        min-height: 100vh;
+        background:
+          radial-gradient(1100px 620px at 50% -18%, #10141c 0%, rgba(16, 20, 28, 0) 62%),
+          var(--bg);
+        color: var(--text);
+        font-family: var(--sans);
+        font-size: 15px;
+        line-height: 1.55;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
       }
-      main { width: 100%; max-width: 44rem; }
-      h1 { font-size: 1.6rem; margin: 0 0 0.25rem; }
-      .muted { color: #9aa4b2; }
-      a { color: #7ea6ff; }
-      ul { list-style: none; margin: 1.5rem 0 0; padding: 0; display: grid; gap: 0.75rem; }
-      a.card {
-        display: block; text-decoration: none; color: inherit;
-        border: 1px solid #232838; border-radius: 12px; padding: 1rem 1.25rem;
-        background: #12151d; transition: border-color 0.15s, transform 0.15s;
+
+      a { color: var(--teal); text-decoration: none; }
+
+      .wrap {
+        width: 100%;
+        max-width: 760px;
+        margin: 0 auto;
+        padding: clamp(28px, 6vw, 64px) clamp(20px, 5vw, 32px) 56px;
       }
-      a.card:hover { border-color: #3b82f6; transform: translateY(-1px); }
-      a.card .name { font-weight: 650; font-size: 1.05rem; }
-      a.card .desc { color: #9aa4b2; font-size: 0.95rem; margin-top: 0.15rem; }
+
+      /* ---------- top bar ---------- */
+      .top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: clamp(48px, 9vw, 84px);
+      }
+      .brand { display: inline-flex; align-items: center; gap: 10px; }
+      .brand .mark { display: block; color: var(--teal); flex: none; }
+      .brand .host {
+        font-family: var(--mono);
+        font-size: 13px;
+        letter-spacing: 0.2px;
+        color: var(--dim);
+      }
+      .brand .host b { color: var(--text); font-weight: 600; }
+      .top .back {
+        font-family: var(--mono);
+        font-size: 12.5px;
+        color: var(--mut);
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 10px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        transition: color 0.15s, border-color 0.15s;
+      }
+      .top .back:hover { color: var(--text); border-color: var(--line-2); }
+
+      /* ---------- hero ---------- */
+      .hero { margin-bottom: clamp(40px, 7vw, 56px); }
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-family: var(--mono);
+        font-size: 12.5px;
+        color: var(--mut);
+        margin: 0 0 18px;
+      }
+      .eyebrow .live-dot {
+        width: 7px; height: 7px; border-radius: 50%;
+        background: var(--ok);
+        box-shadow: 0 0 0 3px rgba(87, 211, 154, 0.14);
+      }
+      h1 {
+        font-size: clamp(34px, 8vw, 52px);
+        line-height: 1.02;
+        letter-spacing: -0.02em;
+        font-weight: 640;
+        margin: 0 0 18px;
+      }
+      h1 .caret {
+        display: inline-block;
+        width: 0.5em; height: 0.88em;
+        margin-left: 0.12em;
+        vertical-align: -0.06em;
+        background: var(--teal);
+        border-radius: 2px;
+        animation: blink 1.15s steps(1) infinite;
+      }
+      @keyframes blink { 50% { opacity: 0; } }
+      .lede {
+        max-width: 52ch;
+        color: var(--dim);
+        font-size: clamp(15px, 2.6vw, 17px);
+        margin: 0 0 22px;
+      }
+      .stack {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 7px;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      .stack li {
+        font-family: var(--mono);
+        font-size: 11.5px;
+        color: var(--dim);
+        padding: 4px 9px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: rgba(23, 27, 35, 0.5);
+      }
+
+      /* ---------- section label ---------- */
+      .rail {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin: 0 0 16px;
+      }
+      .rail .tag {
+        font-family: var(--mono);
+        font-size: 11px;
+        letter-spacing: 1.4px;
+        text-transform: uppercase;
+        color: var(--mut);
+      }
+      .rail .hr { flex: 1; height: 1px; background: var(--line); }
+      .rail .count { font-family: var(--mono); font-size: 11px; color: var(--mut); }
+
+      /* ---------- project cards ---------- */
+      .apps { display: grid; gap: 14px; }
+      .card {
+        position: relative;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        background: linear-gradient(180deg, var(--panel-2) 0%, var(--panel) 100%);
+        padding: 18px 20px 16px;
+        transition: border-color 0.16s ease, transform 0.16s ease, box-shadow 0.16s ease;
+      }
+      .card:hover {
+        border-color: rgba(53, 208, 192, 0.45);
+        transform: translateY(-2px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+      }
+      .card:focus-within {
+        border-color: rgba(53, 208, 192, 0.6);
+      }
+      /* whole card is the click target for the app; source link opts back out */
+      .card .open::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: 14px;
+      }
+      .card .open:focus-visible { outline: none; }
+      .card .open:focus-visible::after {
+        outline: 2px solid var(--teal);
+        outline-offset: 2px;
+      }
+
+      .card .meta-top {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 12px;
+        color: var(--mut);
+        font-family: var(--mono);
+        font-size: 11.5px;
+      }
+      .card .idx { color: var(--line-2); }
+      .status { display: inline-flex; align-items: center; gap: 6px; }
+      .status .dot { width: 7px; height: 7px; border-radius: 50%; flex: none; }
+      .status.live .dot { background: var(--ok); box-shadow: 0 0 0 3px rgba(87, 211, 154, 0.13); }
+      .status.live { color: var(--ok); }
+      .status.gated .dot { background: var(--warn); }
+      .status.gated { color: var(--warn); }
+      .card .arrow { margin-left: auto; color: var(--mut); display: flex; transition: color 0.16s, transform 0.16s; }
+      .card:hover .arrow { color: var(--teal); transform: translate(1px, -1px); }
+
+      .card .name {
+        display: flex;
+        align-items: baseline;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-bottom: 8px;
+      }
+      .card .name h2 {
+        font-family: var(--mono);
+        font-size: 19px;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+        margin: 0;
+      }
+      .card .name h2 a { color: var(--text); }
+      .card:hover .name h2 a { color: var(--teal); }
+      .route {
+        font-family: var(--mono);
+        font-size: 12px;
+        color: var(--teal);
+        padding: 2px 8px;
+        border-radius: 6px;
+        background: rgba(53, 208, 192, 0.1);
+        border: 1px solid rgba(53, 208, 192, 0.22);
+      }
+      .card p.desc {
+        margin: 0 0 16px;
+        color: var(--dim);
+        font-size: 14px;
+        max-width: 60ch;
+      }
+      .card .foot {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .tag-chip {
+        font-family: var(--mono);
+        font-size: 11px;
+        color: var(--dim);
+        padding: 3px 8px;
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+      }
+      .tag-chip svg { color: var(--mut); }
+      .card .src {
+        position: relative;
+        z-index: 1;
+        margin-left: auto;
+        font-family: var(--mono);
+        font-size: 12px;
+        color: var(--mut);
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 4px 6px;
+        transition: color 0.15s;
+      }
+      .card .src:hover { color: var(--teal); }
+
+      /* ---------- footer ---------- */
+      footer {
+        margin-top: clamp(48px, 9vw, 72px);
+        padding-top: 20px;
+        border-top: 1px solid var(--line);
+      }
+      .foot-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+      .foot-row .who { color: var(--dim); font-size: 13.5px; }
+      .foot-row .who b { color: var(--text); font-weight: 600; }
+      .foot-row .home {
+        font-family: var(--mono);
+        font-size: 13px;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .pipeline {
+        margin-top: 12px;
+        font-family: var(--mono);
+        font-size: 11.5px;
+        color: var(--mut);
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .pipeline .sep { color: var(--line-2); }
+
+      @media (max-width: 460px) {
+        .card .arrow { display: none; }
+        .foot-row { gap: 10px; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        h1 .caret { animation: none; }
+        .card, .card .arrow { transition: none; }
+        .card:hover { transform: none; }
+      }
     </style>
   </head>
   <body>
-    <main>
-      <h1>Projects</h1>
-      <p class="muted">Things I'm building — <a href="https://sujaykumar.dev">sujaykumar.dev</a></p>
-      <ul>
-        <li>
-          <a class="card" href="https://projects.sujaykumar.dev/airlift/">
-            <div class="name">airlift ↗</div>
-            <div class="desc">Optical file transfer out of an air-gapped machine — scan an animated QR loop, reassemble and verify.</div>
+    <div class="wrap">
+      <!-- top bar -->
+      <header class="top">
+        <span class="brand">
+          <svg class="mark" width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <g stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="7" cy="8" r="2" />
+              <circle cx="17" cy="8" r="2" />
+              <circle cx="12" cy="16" r="2" />
+              <path d="M8.5 9.3 11 14.4M15.5 9.3 13 14.4M9 8h6" />
+            </g>
+          </svg>
+          <span class="host"><b>projects</b>.sujaykumar.dev</span>
+        </span>
+        <a class="back" href="https://sujaykumar.dev">
+          sujaykumar.dev
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M7 17 17 7M9 7h8v8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </a>
+      </header>
+
+      <!-- hero -->
+      <section class="hero">
+        <p class="eyebrow"><span class="live-dot"></span>single-node k3s · GitOps</p>
+        <h1>Projects<span class="caret" aria-hidden="true"></span></h1>
+        <p class="lede">
+          Small things I build and self-host — each running on a single-node k3s
+          cluster behind this domain, reachable at its own path below.
+        </p>
+        <ul class="stack">
+          <li>k3s</li>
+          <li>Traefik</li>
+          <li>Flux GitOps</li>
+          <li>Let's Encrypt</li>
+        </ul>
+      </section>
+
+      <!-- running apps -->
+      <div class="rail">
+        <span class="tag">Running</span>
+        <span class="hr"></span>
+        <span class="count">2 apps</span>
+      </div>
+
+      <main class="apps">
+        <!-- airlift -->
+        <article class="card">
+          <div class="meta-top">
+            <span class="idx">01</span>
+            <span class="status live"><span class="dot"></span>live</span>
+            <span class="arrow" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                <path d="M7 17 17 7M9 7h8v8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </span>
+          </div>
+          <div class="name">
+            <h2><a class="open" href="/airlift/">airlift</a></h2>
+            <span class="route">/airlift</span>
+          </div>
+          <p class="desc">
+            Optical file transfer out of an air-gapped machine. It renders a file
+            as an animated QR loop on the isolated screen; a phone scans the loop,
+            and the far side reassembles and verifies it hash-by-hash.
+          </p>
+          <div class="foot">
+            <span class="tag-chip">Go</span>
+            <span class="tag-chip">air-gap</span>
+            <a class="src" href="https://github.com/sujaykumarsuman/airlift">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 2A10 10 0 0 0 8.8 21.5c.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.3-3.4-1.3-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.3 1.1 2.9.8.1-.6.3-1.1.6-1.4-2.2-.2-4.6-1.1-4.6-4.9 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.6 0 0 .8-.3 2.7 1a9.4 9.4 0 0 1 5 0c1.9-1.3 2.7-1 2.7-1 .5 1.3.2 2.3.1 2.6.6.7 1 1.6 1 2.7 0 3.8-2.4 4.7-4.6 4.9.3.3.6.9.6 1.9v2.8c0 .3.2.6.7.5A10 10 0 0 0 12 2Z" />
+              </svg>
+              source
+            </a>
+          </div>
+        </article>
+
+        <!-- landscape -->
+        <article class="card">
+          <div class="meta-top">
+            <span class="idx">02</span>
+            <span class="status gated">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <rect x="5" y="11" width="14" height="9" rx="2" stroke="currentColor" stroke-width="1.8" />
+                <path d="M8 11V8a4 4 0 0 1 8 0v3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+              </svg>
+              internal · admin-gated
+            </span>
+            <span class="arrow" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                <path d="M7 17 17 7M9 7h8v8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </span>
+          </div>
+          <div class="name">
+            <h2><a class="open" href="/landscape/">landscape</a></h2>
+            <span class="route">/landscape</span>
+          </div>
+          <p class="desc">
+            A read-only control-plane view of this cluster. It maps the whole flow —
+            repos → image builds → Flux → running workloads — explains how each
+            piece got there, and draws the GitOps graph live.
+          </p>
+          <div class="foot">
+            <span class="tag-chip">Go</span>
+            <span class="tag-chip">read-only</span>
+            <a class="src" href="https://github.com/sujaykumarsuman/landscape">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 2A10 10 0 0 0 8.8 21.5c.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.3-3.4-1.3-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.3 1.1 2.9.8.1-.6.3-1.1.6-1.4-2.2-.2-4.6-1.1-4.6-4.9 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.6 0 0 .8-.3 2.7 1a9.4 9.4 0 0 1 5 0c1.9-1.3 2.7-1 2.7-1 .5 1.3.2 2.3.1 2.6.6.7 1 1.6 1 2.7 0 3.8-2.4 4.7-4.6 4.9.3.3.6.9.6 1.9v2.8c0 .3.2.6.7.5A10 10 0 0 0 12 2Z" />
+              </svg>
+              source
+            </a>
+          </div>
+        </article>
+      </main>
+
+      <!-- footer -->
+      <footer>
+        <div class="foot-row">
+          <span class="who">Built &amp; operated by <b>Sujay Kumar Suman</b></span>
+          <a class="home" href="https://sujaykumar.dev">
+            sujaykumar.dev
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M7 17 17 7M9 7h8v8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
           </a>
-        </li>
-      </ul>
-    </main>
+        </div>
+        <div class="pipeline">
+          <span>deployed via GitOps</span>
+          <span class="sep">·</span>
+          <span>image → GHCR → Flux → k3s</span>
+        </div>
+      </footer>
+    </div>
   </body>
 </html>

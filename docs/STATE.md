@@ -1,65 +1,36 @@
-# State — Portfolio Build
+# State — repo status
 
-> Update this file as work progresses. It is the source of truth for current build state.
+> Current state of the repo, for humans and agents picking up work. Update this
+> file as things change.
 
-## Current status
-
-**Branch:** `feat/portfolio-rebuild`
-**Target:** PR → `main`
-**Last updated:** 2026-03-22
+**Last updated:** 2026-09-16
+**Branch model:** `main` is the only long-lived branch (production for both
+deliverables). Work happens on short-lived feature branches → PR →
+squash-merge. See [`GIT_STRATEGY.md`](GIT_STRATEGY.md).
 
 ---
 
-## Build checklist
+## Current status
 
-### Phase 0 — Git cleanup
-- [x] Discard all in-progress changes on old codex branch
-- [x] Switch to `main`, pull latest from `origin/main`
-- [x] Delete all stale local branches (codex/*, master)
-- [x] Delete all stale remote branches (all except `origin/main`)
-- [x] Create `feat/portfolio-rebuild` from `main`
+This repo ships **two things from `main`:**
 
-### Phase 1 — Data
-- [x] Create `data/portfolio.json` with full content schema
-  - Meta, nav, home, stats, experience (3 jobs), education, skills (6 groups), links, connect, journey, stack, footer
+1. **Portfolio — `sujaykumar.dev`** — **live.** Single-page React app (React 18 +
+   `@babel/standalone`, JSX compiled in the browser, no build step), served by
+   **GitHub Pages from the repo root**. Content is driven entirely by `data.json`;
+   all styles are in `styles.css` (warm-paper / terracotta, light + dark, dark by
+   default). A push to `main` auto-deploys.
 
-### Phase 2 — CSS
-- [x] `css/tokens.css` — design tokens (colors, fonts, spacing, radius, transitions)
-- [x] `css/base.css` — reset, body, typography, container, utility classes
-- [x] `css/components.css` — nav, buttons, hero, stat cards, exp cards, skill groups, info panels, connect cards, footer, 404
+2. **Projects hub — `projects.sujaykumar.dev`** — **live**, source in `projects/`.
+   Not GitHub Pages: `.github/workflows/deploy.yml` builds a Docker image on
+   changes under `projects/` and pushes it to GHCR; **Flux GitOps** deploys it to
+   a single-node **k3s** cluster (cluster state in `sujaykumarsuman/infra`). Image
+   tags follow `0.1.<run_number>` and an ImagePolicy rolls forward to the newest —
+   treat the exact live tag as a moving value, not a constant. Its own docs:
+   [`../projects/README.md`](../projects/README.md),
+   [`ARCHITECTURE.md`](ARCHITECTURE.md).
 
-### Phase 3 — JavaScript
-- [x] `js/renderer.js` — pure builder functions (nav, footer, stats, experience, skills, focus panel, info panel, education, profile links, CTAs, home/journey/stack/connect/404 page renderers)
-- [x] `js/app.js` — fetch data, page detection, mount shared + page content, copy button events, doc meta
-
-### Phase 4 — HTML
-- [x] `index.html` (home, `data-page="home"`)
-- [x] `journey/index.html` (`data-page="journey"`)
-- [x] `stack/index.html` (`data-page="stack"`)
-- [x] `connect/index.html` (`data-page="connect"`)
-- [x] `404.html` (`data-page="not-found"`)
-
-### Phase 5 — Docs
-- [x] `docs/PROMPT.md` — system prompt for AI agents
-- [x] `docs/AGENT.md` — agent behavioral spec
-- [x] `docs/STATE.md` — this file
-- [x] `docs/DESIGN.md` — design system reference
-
-### Phase 6 — Verification
-- [ ] Local preview passes (`python3 -m http.server 8080`)
-- [ ] All 4 pages + 404 render correctly
-- [ ] Nav active state correct on each page
-- [ ] Email copy button works
-- [ ] No console errors
-- [ ] Edit `data/portfolio.json` → change reflects without touching code
-- [ ] Mobile responsive (375px, 768px, 1280px)
-
-### Phase 7 — Deploy
-- [ ] Commit all files on `feat/portfolio-rebuild`
-- [ ] Push branch to remote
-- [ ] Open PR: `feat/portfolio-rebuild` → `main`
-- [ ] Merge PR
-- [ ] Verify live at `https://sujaykumar.dev`
+The single-page React + `data.json` architecture is in place and stable; typical
+updates are one-file edits to `data.json` (content) or `styles.css` (design).
 
 ---
 
@@ -67,28 +38,29 @@
 
 | Decision | Choice | Rationale |
 |----------|--------|-----------|
-| Stack | Vanilla HTML/CSS/JS | No build tools, direct GitHub Pages deploy |
-| Data source | `data/portfolio.json` | Single JSON edit point, no code changes for content updates |
-| Local preview | `python3 -m http.server 8080` | Built into macOS, zero setup |
-| CSS structure | 3 files: tokens, base, components | Clear separation of values vs styles |
-| JS structure | renderer.js (pure) + app.js (orchestration) | Data changes never require renderer edits |
-| Font: headings | JetBrains Mono | Techy, monospace, strong personality |
-| Font: body | Inter | Clean, readable, system-friendly |
-| Accent color | `#22d3ee` (cyan) | Confirmed by user |
-| Background | `#0d1117` | GitHub-dark palette, easy on eyes |
+| Portfolio stack | React 18 via `@babel/standalone` (CDN), JSX compiled in-browser | No build step, no toolchain; edit-and-refresh; deploys straight to Pages |
+| Content source | `data.json` (single file) | One edit point; content changes need no code change |
+| Content ↔ code split | Components read `window.PORTFOLIO_DATA`; no strings in JSX | Keeps content in `data.json`, structure in `sections.jsx` |
+| Styling | One `styles.css` with CSS custom-property tokens | Simple, no CSS build; light/dark from token overrides |
+| Design language | Warm "paper" palette + terracotta accent; Fraunces/Inter/JetBrains Mono/Caveat | Calm, editorial, distinct from generic dev-dark portfolios |
+| Theming | `data-theme` on `<html>`, dark by default, nav toggle → `localStorage` | Pre-paint inline script avoids flash; honors user choice |
+| Portfolio hosting | GitHub Pages from repo root on `main` | Zero infra; custom domain via `CNAME`, Jekyll off via `.nojekyll` |
+| Local preview | `python3 -m http.server 8080` | Built into macOS; satisfies `fetch('data.json')` (no `file://`) |
+| Projects hub delivery | Docker image → GHCR → Flux → k3s (GitOps) | The hub needs a real web server / routing; GitOps keeps deploys declarative |
 
 ---
 
-## Known issues / outstanding work
+## Known issues / open follow-ups
 
-_None at time of initial build._
-
----
-
-## Content inventory (data/portfolio.json)
-
-- **Experience:** HashiCorp (2025–), Infoblox (2022–2025), Nokia (2021–2022)
-- **Education:** B.E. CSE, Chandigarh University, 2017–2021
-- **Skills:** 6 groups — Programming, Core Knowledge, Cloud & Infrastructure, Data & Messaging, Networking & Storage, DevOps & Automation
-- **Links:** LinkedIn, GitHub, LeetCode, GeeksForGeeks, Resume
-- **Stats:** 500+ high severity fixes, 900+ node-scale, <2h cluster provisioning, 4+ years
+- **`writing` section not mounted.** The `writing` data key and its `Writing`
+  component exist but `Writing` is not rendered in `app.jsx` (kept for later).
+  Editing `writing` has no visible effect until it's remounted.
+- **Docs refresh (this pass).** The `docs/` files previously described an older,
+  never-shipped multi-page vanilla-JS rebuild. `AGENT.md`, `PROMPT.md`,
+  `DESIGN.md`, `CONTENT.md`, and this file are now rewritten to match the shipped
+  single-page React / `data.json` site; the projects hub is documented separately
+  (`projects/README.md`, `docs/ARCHITECTURE.md`, `docs/GIT_STRATEGY.md`). Both
+  deliverables are now documented.
+- No automated tests or CI checks on the portfolio itself — verification is manual
+  local preview. (The `deploy.yml` workflow only builds/pushes the projects-hub
+  image.)
