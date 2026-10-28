@@ -73,6 +73,7 @@ Traefik routes by host + path prefix, and priority breaks ties:
 | `projects.sujaykumar.dev/` | **projects-hub** (this page) | 1 (lowest → fallback) | `infra` |
 | `projects.sujaykumar.dev/airlift` | airlift | 100 | `infra` |
 | `projects.sujaykumar.dev/landscape` | landscape | 90 | `infra` |
+| `projects.sujaykumar.dev/dsa` | root-to-leaf | 100 | `infra` |
 
 The routes, priorities, TLS, and namespaces are all rendered by the shared
 `charts/project` Helm chart in **`sujaykumarsuman/infra`** (`apps/<app>.yaml`).
@@ -91,7 +92,8 @@ There are two independent parts — most projects need both:
 2. **Add a card to the hub** — edit [`index.html`](index.html): copy an
    existing `<article class="card">` block and update the index number,
    status (`live` / `gated`), name, `/route`, description, tech chips, and
-   source link. Commit → PR → merge; the pipeline rebuilds the image.
+   source link (leave it out for a private repo, as root-to-leaf's card does).
+   Commit → PR → merge; the pipeline rebuilds the image.
 
 Keep the page **one self-contained file**: inline CSS only, no build step, no
 required CDN JavaScript (nginx just serves the single file). The visual
